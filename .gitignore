@@ -4,3 +4,17 @@
 */cache/*
 */cache/!index.html
 */cache/!.htaccess
+
+# Dependency directory
+# https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
+node_modules
+bower_components
+
+# Example templates
+templates
+
+# Build assets
+public
+
+$ Debug log
+npm-debug.log
