@@ -52,3 +52,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'frontend';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+// Category route
+$route['api/category'] 					= ($_SERVER['REQUEST_METHOD'] == 'GET') ? '/api/category/all' 	 : '/api/category/create';
+$route['api/category/(:any)'] 			= ($_SERVER['REQUEST_METHOD'] == 'GET') ? '/api/category/get/$1' : '/api/category/update/$1';
+$route['api/category/(:any)/delete'] 	= '/api/category/delete/$1';
+// menu route
+$route['api/menu'] 						= ($_SERVER['REQUEST_METHOD'] == 'GET') ? '/api/menu/all' 		 : '/api/menu/create';
+$route['api/menu/(:any)'] 				= ($_SERVER['REQUEST_METHOD'] == 'GET') ? '/api/menu/get/$1' 	 : '/api/menu/update/$1';
+$route['api/menu/(:any)/delete'] 		= '/api/menu/delete/$1';
+// post route
+$route['api/post'] 						= ($_SERVER['REQUEST_METHOD'] == 'GET') ? '/api/post/all' 		 : '/api/post/create';
+$route['api/post/(:any)'] 				= ($_SERVER['REQUEST_METHOD'] == 'GET') ? '/api/post/get/$1' 	 : '/api/post/update/$1';
+$route['api/post/(:any)/delete'] 		= '/api/post/delete/$1';
+// setting route
+$route['api/setting/(:any)'] 			= ($_SERVER['REQUEST_METHOD'] == 'GET') ? '/api/setting/get/$1'  : '/api/setting/update/$1';
