@@ -53,16 +53,16 @@ $route['default_controller'] = 'frontend';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 // Category route
-$route['api/category'] 					= ($_SERVER['REQUEST_METHOD'] == 'GET') ? '/api/category/all' 	 : '/api/category/create';
-$route['api/category/(:any)'] 			= ($_SERVER['REQUEST_METHOD'] == 'GET') ? '/api/category/get/$1' : '/api/category/update/$1';
-$route['api/category/(:any)/delete'] 	= '/api/category/delete/$1';
+$route['api/category'] 					= $_SERVER['REQUEST_METHOD'] == 'GET' ? '/api/category/all'	: ($_SERVER['REQUEST_METHOD'] == 'POST' ? '/api/category/create' : '/api/error/error_404');
+$route['api/category/(:any)'] 			= $_SERVER['REQUEST_METHOD'] == 'GET' ? '/api/category/get/$1' : ($_SERVER['REQUEST_METHOD'] == 'POST' ? '/api/category/update/$1' : '/api/error/error_404');
+$route['api/category/(:any)/delete'] 	= $_SERVER['REQUEST_METHOD'] == 'POST' ? '/api/category/delete/$1' : '/api/error/error_404';
 // menu route
-$route['api/menu'] 						= ($_SERVER['REQUEST_METHOD'] == 'GET') ? '/api/menu/all' 		 : '/api/menu/create';
-$route['api/menu/(:any)'] 				= ($_SERVER['REQUEST_METHOD'] == 'GET') ? '/api/menu/get/$1' 	 : '/api/menu/update/$1';
-$route['api/menu/(:any)/delete'] 		= '/api/menu/delete/$1';
+$route['api/menu'] 						= $_SERVER['REQUEST_METHOD'] == 'GET' ? '/api/menu/all'	: ($_SERVER['REQUEST_METHOD'] == 'POST' ? '/api/menu/create' : '/api/error/error_404');
+$route['api/menu/(:any)'] 				= $_SERVER['REQUEST_METHOD'] == 'GET' ? '/api/menu/get/$1' : ($_SERVER['REQUEST_METHOD'] == 'POST' ? '/api/menu/update/$1' : '/api/error/error_404');
+$route['api/menu/(:any)/delete'] 		= $_SERVER['REQUEST_METHOD'] == 'POST' ? '/api/menu/delete/$1' : '/api/error/error_404';
 // post route
-$route['api/post'] 						= ($_SERVER['REQUEST_METHOD'] == 'GET') ? '/api/post/all' 		 : '/api/post/create';
-$route['api/post/(:any)'] 				= ($_SERVER['REQUEST_METHOD'] == 'GET') ? '/api/post/get/$1' 	 : '/api/post/update/$1';
-$route['api/post/(:any)/delete'] 		= '/api/post/delete/$1';
+$route['api/post'] 						= $_SERVER['REQUEST_METHOD'] == 'GET' ? '/api/post/all'	: ($_SERVER['REQUEST_METHOD'] == 'POST' ? '/api/post/create' : '/api/error/error_404');
+$route['api/post/(:any)'] 				= $_SERVER['REQUEST_METHOD'] == 'GET' ? '/api/post/get/$1' : ($_SERVER['REQUEST_METHOD'] == 'POST' ? '/api/post/update/$1' : '/api/error/error_404');
+$route['api/post/(:any)/delete'] 		= $_SERVER['REQUEST_METHOD'] == 'POST' ? '/api/post/delete/$1' : '/api/error/error_404';
 // setting route
-$route['api/setting/(:any)'] 			= ($_SERVER['REQUEST_METHOD'] == 'GET') ? '/api/setting/get/$1'  : '/api/setting/update/$1';
+$route['api/setting/(:any)'] 			= $_SERVER['REQUEST_METHOD'] == 'GET' ? '/api/setting/get/$1' : ($_SERVER['REQUEST_METHOD'] == 'POST' ? '/api/setting/update/$1' : '/api/error/error_404');
