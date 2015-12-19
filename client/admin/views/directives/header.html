@@ -1,0 +1,13 @@
+<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0" ng-if="isLoggedin">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" ng-click="isCollapse = !isCollapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" ui-sref="home">Admin</a>
+    </div>
+    <header-notification></header-notification>
+    <sidebar></sidebar>
+</nav>

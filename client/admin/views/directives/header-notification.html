@@ -1,0 +1,12 @@
+<ul class="nav navbar-top-links navbar-right" ng-if="isLoggedin">
+    <li class="dropdown" dropdown>
+        <a href class="dropdown-toggle" dropdown-toggle>
+            <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu">
+            <li>
+                <a href ng-click="logout()"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+            </li>
+        </ul>
+    </li>
+</ul>

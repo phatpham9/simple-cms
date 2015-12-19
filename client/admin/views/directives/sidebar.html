@@ -1,0 +1,50 @@
+<div class="navbar-default sidebar" role="navigation">
+    <div class="sidebar-nav navbar-collapse" collapse="!isCollapse">
+        <ul class="nav in" id="side-menu">
+            <li>
+                <a ui-sref="postCreate" ui-sref-active="active" class="postCreate">
+                    <i class="fa fa-edit fa-fw"></i> New Post
+                </a>
+            </li>
+            <li>
+                <a ui-sref="posts">
+                    <i class="fa fa-list fa-fw"></i> Content<span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level" collapse="(!state.includes('posts') && !state.includes('tags')) || (state.includes('posts') && state.includes('tags'))">
+                    <li>
+                        <a ui-sref="posts" ui-sref-active="active" class="posts">
+                            Posts
+                        </a>
+                    </li>
+                    <li>
+                        <a ui-sref="tags" ui-sref-active="active" class="tags">
+                            Tags
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a ui-sref="settingGeneral">
+                    <i class="fa fa-gear fa-fw"></i> Settings<span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level" collapse="(!state.includes('settingGeneral') && !state.includes('settingNavigation') && !state.includes('users')) || (state.includes('settingGeneral') && state.includes('settingNavigation') && state.includes('users'))">
+                    <li>
+                        <a ui-sref="settingGeneral" ui-sref-active="active" class="settingGeneral">
+                            General
+                        </a>
+                    </li>
+                    <li>
+                        <a ui-sref="settingNavigation" ui-sref-active="active" class="settingNavigation">
+                            Navigation
+                        </a>
+                    </li>
+                    <li>
+                        <a ui-sref="users" ui-sref-active="active" class="users">
+                            Users
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,95 @@
+<div class="container-fluid" ng-controller="postDetailsController" ng-init="init()">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="page-header">
+                {{state.is('postCreate') ? 'New Post' : 'Post Details'}}
+                <div class="pull-right">
+                    <a ui-sref="posts" class="btn btn-sm btn-default"><i class="fa fa-arrow-left"></i></a>
+                </div>
+            </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form name="form" class="form-horizontal" novalidate ng-submit="save(form)">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        {{post.title || '-'}}
+                        <div class="pull-right" style="margin-top: -5px;">
+                            <button type="button" class="btn btn-sm btn-default" ng-click="delete()" ng-if="state.is('postDetails')"><i class="fa fa-times"></i></button>
+                            <button type="submit" class="btn btn-sm btn-default"><i class="fa fa-floppy-o"></i></button>
+                            <button type="button" class="btn btn-sm btn-default" ng-click="preview()"><i class="fa fa-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group" ng-class="{'has-error': form.$submitted && form.title.$invalid}">
+                            <label for="title" class="col-md-2 control-label">Title</label>
+                            <div class="col-md-8">
+                                <input type="text" id="title" class="form-control" name="title" ng-model="post.title" ng-change="generateSlug()" required tooltip="Title is required" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.$submitted && form.title.$invalid">
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error': form.slug.$error.uniquepost || (form.$submitted && form.slug.$error.required)}">
+                            <label for="slug" class="col-md-2 control-label">Slug</label>
+                            <div class="col-md-8">
+                                <input type="text" id="slug" class="form-control" name="slug" ng-model="post.slug" required uniquepost="{{post._id}}" tooltip="{{form.slug.$error.required ? 'Slug is required' : (form.slug.$error.uniquepost ? 'Slug already in use' : '')}}" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.slug.$error.uniquepost || (form.$submitted && form.slug.$error.required)">
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error': form.briefIntroduction.$invalid}">
+                            <label for="brief-introduction" class="col-md-2 control-label">Brief intro</label>
+                            <div class="col-md-8">
+                                <input type="text" id="brief-introduction" class="form-control" name="briefIntroduction" ng-model="post.briefIntroduction" maxlength="150" placeholder="Optional" tooltip="Max length of 150 characters" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.briefIntroduction.$invalid">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="background-url" class="col-md-2 control-label">Background</label>
+                            <div class="col-md-3">
+                                <input type="text" id="background-url" class="form-control" name="backgroundUrl" ng-model="post.background.url">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" id="background-position" class="form-control" name="backgroundPosition" ng-model="post.background.position">
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" id="background-source" class="form-control" name="backgroundSource" ng-model="post.background.source">
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error': form.$submitted && form.content.$invalid}">
+                            <label for="content" class="col-md-2 control-label">Content</label>
+                            <div class="col-md-8">
+                                <text-angular id="content" name="content" ng-model="post.content" tooltip="Content is required" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.$submitted && form.content.$invalid"></text-angular>
+                            </div>
+                            <div class="col-md-2">
+                                <p class="help-block">{{post.numWords > 1 ? (post.numWords | number) + ' words' : (post.numWords | number) + ' word'}}<br>{{post.readingSpeed + ' read'}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error': form.$submitted && form.staticPage.$invalid, 'mb0': post.isStaticPage}">
+                            <label for="static-page" class="col-md-2 control-label">Static page</label>
+                            <div class="col-md-8">
+                                <select name="staticPage" id="static-page" class="form-control" ng-model="post.isStaticPage" ng-options="staticPage.value as staticPage.text for staticPage in [{text: 'Yes', value: true}, {text: 'No', value: false}]" required tooltip="Static page is required" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.$submitted && form.staticPage.$invalid"></select>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-hide="post.isStaticPage">
+                            <label for="tags" class="col-md-2 control-label">Tags</label>
+                            <div class="col-md-8">
+                                <tags-input id="tags" ng-model="post.tags" display-property="name" add-on-space="true" addOnPaste="true">
+                                    <auto-complete source="tags"></auto-complete>
+                                </tags-input>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-hide="post.isStaticPage" ng-class="{'has-error': form.$submitted && form.date.$invalid}">
+                            <label for="date" class="col-md-2 control-label">Date</label>
+                            <div class="col-md-8">
+                                <input type="text" id="date" class="form-control" name="date" ng-model="post.date" readonly required tooltip="Date is required" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.$submitted && form.date.$invalid">
+                            </div>
+                        </div>
+                        <div class="form-group mb0" ng-hide="post.isStaticPage" ng-class="{'has-error': form.$submitted && form.publish.$invalid}">
+                            <label for="publish" class="col-md-2 control-label">Publish</label>
+                            <div class="col-md-8">
+                                <select name="publish" id="publish" class="form-control" ng-model="post.isPublished" ng-options="publish.value as publish.text for publish in [{text: 'Yes', value: true}, {text: 'No', value: false}]" required tooltip="Publish is required" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.$submitted && form.publish.$invalid"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

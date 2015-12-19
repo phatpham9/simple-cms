@@ -1,0 +1,68 @@
+<div class="container-fluid" ng-controller="userController" ng-init="init()">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="page-header">
+                Users
+                <div class="pull-right">
+                    <a ui-sref="userCreate" class="btn btn-sm btn-default"><i class="fa fa-plus"></i></a>
+                </div>
+            </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Users
+                    <div class="pull-right" style="margin-top: -5px;">
+                        <form name="form" novalidate ng-submit="onChangeSearchKey()">
+                            <input type="text" class="form-control input-sm" placeholder="Search" ng-model="search.key">
+                        </form>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="col-5">#</th>
+                                <th>Email</th>
+                                <th class="col-10">
+                                    <select class="form-control" ng-model="filter.role" ng-options="role.value as role.text for role in [{text: 'User', value: 'user'}, {text: 'Admin', value: 'admin'}]" style="height: inherit;">
+                                        <option value="">All</option>
+                                    </select>
+                                </th>
+                                <th class="col-5">
+                                    <select class="form-control" ng-model="filter.status" ng-options="status.value as status.text for status in [{text: 'Enabled', value: 'enabled'}, {text: 'Disabled', value: 'disabled'}]" style="height: inherit;">
+                                        <option value="">All</option>
+                                    </select>
+                                </th>
+                                <th class="col-5"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="user in filteredResults">
+                                <td>{{$index + 1}}</td>
+                                <td>
+                                    <a ui-sref="userDetails({userId: user._id})">{{user.email}}</a>
+                                </td>
+                                <td>{{user.roles.join(', ')}}</td>
+                                <td>
+                                    <span class="label" ng-class="{'label-success' : user.isEnabled, 'label-default' : !user.isEnabled}">{{user.isEnabled ? 'Enabled' : 'Disabled'}}</span>
+                                </td>
+                                <td class="text-right">
+                                    <button type="button" class="btn btn-xs btn-danger" ng-click="delete(user)"><i class="fa fa-times"></i></button>
+                                </td>
+                            </tr>
+                            <tr ng-show="filteredResults.length == 0">
+                                <td colspan="5" class="text-center">There's no user yet!</td>
+                            </tr>
+                            <tr ng-if="count.fetched < count.total">
+                                <td colspan="5" class="text-center"><button type="button" class="btn btn-default btn-sm" ng-click="loadMore()">Load more</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

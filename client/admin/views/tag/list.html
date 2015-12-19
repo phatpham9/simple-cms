@@ -1,0 +1,14 @@
+<div class="container-fluid" ng-controller="tagController" ng-init="init()">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="page-header">
+                Tags
+            </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <span class="badge" ng-repeat="tag in tags">#{{tag.name}}</span>
+        </div>
+    </div>
+</div>

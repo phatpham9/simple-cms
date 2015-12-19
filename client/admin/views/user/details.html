@@ -1,0 +1,47 @@
+<div class="container-fluid" ng-controller="userDetailsController" ng-init="init()">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="page-header">
+                {{state.is('userCreate') ? 'New User' : 'User Details'}}
+                <div class="pull-right">
+                    <a ui-sref="users" class="btn btn-sm btn-default"><i class="fa fa-arrow-left"></i></a>
+                </div>
+            </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form name="form" class="form-horizontal" novalidate ng-submit="save(form)">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        {{user.email || '-'}}
+                        <div class="pull-right" style="margin-top: -5px;">
+                            <button type="button" class="btn btn-sm btn-default" ng-click="delete()" ng-if="state.is('userDetails')"><i class="fa fa-times"></i></button>
+                            <button type="submit" class="btn btn-sm btn-default"><i class="fa fa-floppy-o"></i></button>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group" ng-class="{'has-error': form.email.$error.uniqueemail || (form.$submitted && form.email.$invalid)}">
+                            <label for="email" class="col-md-2 control-label">Login email</label>
+                            <div class="col-md-8">
+                                <input type="email" id="email" class="form-control" name="email" ng-model="user.email" required uniqueemail="{{user._id}}" tooltip="{{form.email.$error.required ? 'Email is required' : (form.email.$error.email ? 'Invalid email address' : (form.email.$error.uniqueemail ? 'Email is already used' : ''))}}" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.email.$error.uniqueemail || (form.$submitted && form.email.$invalid)">
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error': form.$submitted && form.password.$invalid}">
+                            <label for="password" class="col-md-2 control-label">Password</label>
+                            <div class="col-md-8">
+                                <input type="password" id="password" class="form-control" name="password" ng-model="user.password" ng-change="onChangePassword()" placeholder="{{state.is('userDetails') ? 'Input if you want to change password. Otherwise leave it blank.' : ''}}" tooltip="{{form.password.$error.required ? 'Password is required' : ''}}" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.$submitted && form.password.$invalid">
+                            </div>
+                        </div>
+                        <div class="form-group mb0" ng-class="{'has-error': form.$submitted && form.enable.$invalid}">
+                            <label for="enable" class="col-md-2 control-label">Enable</label>
+                            <div class="col-md-8">
+                                <select name="enable" id="enable" class="form-control" ng-model="user.isEnabled" ng-options="enable.value as enable.text for enable in [{text: 'Yes', value: true}, {text: 'No', value: false}]" required tooltip="Enable is required" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.$submitted && form.enable.$invalid"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
