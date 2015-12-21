@@ -58,12 +58,14 @@ class Auth extends CI_Controller
 
 
 			// Get login for counting attempts to login
-			if ($this->config->item('login_count_attempts', 'tank_auth') AND
-					($login = $this->input->post('login'))) {
-				$login = $this->security->xss_clean($login);
-			} else {
-				$login = '';
-			}
+			// if ($this->config->item('login_count_attempts', 'tank_auth') AND
+			// 		($login = $this->input->post('login'))) {
+			// 	$login = $this->security->xss_clean($login);
+			// } else {
+			// 	$login = '';
+			// }
+
+			$login = $this->security->xss_clean($login);
 
 			$data['use_recaptcha'] = $this->config->item('use_recaptcha', 'tank_auth');
 			if ($this->tank_auth->is_max_login_attempts_exceeded($login)) {
