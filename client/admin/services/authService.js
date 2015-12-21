@@ -5,7 +5,7 @@ angular.module('simple-cms.auth')
 .factory('authService', ['$resource',
     function($resource) {
         var authService = {
-            login: $resource('api/login', {}, {
+            login: $resource('api/auth/login', {}, {
                 login: {
                     method: 'POST'
                 }

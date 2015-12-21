@@ -52,9 +52,13 @@ class Auth extends CI_Controller
 					$this->config->item('use_username', 'tank_auth'));
 			$data['login_by_email'] = $this->config->item('login_by_email', 'tank_auth');
 
-			$login = $this->input->post('login');
-			$password = $this->input->post('password');
+			$postdata = file_get_contents("php://input");
+      		$request = json_decode($postdata);
+
+			$login = $request->email;
+			$password = $request->password;
 			$remember = $this->input->post('remember');
+			
 
 
 			// Get login for counting attempts to login
