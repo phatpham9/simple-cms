@@ -40,7 +40,7 @@ $config['phpass_hash_strength'] = 8;
 |--------------------------------------------------------------------------
 */
 $config['allow_registration'] = TRUE;
-$config['captcha_registration'] = TRUE;
+$config['captcha_registration'] = FALSE;
 $config['email_activation'] = TRUE;
 $config['email_activation_expire'] = 60*60*24*2;
 $config['email_account_details'] = TRUE;
@@ -126,9 +126,9 @@ $config['captcha_case_sensitive'] = TRUE;
 | You can get reCAPTCHA keys by registering at http://recaptcha.net
 |--------------------------------------------------------------------------
 */
-$config['use_recaptcha'] = FALSE;
-$config['recaptcha_public_key'] = '';
-$config['recaptcha_private_key'] = '';
+$config['use_recaptcha'] = TRUE;
+$config['recaptcha_public_key'] = '6LdQjBMTAAAAAJxn-qOB5jXgt4bBLJqT0dD2wEZu';
+$config['recaptcha_private_key'] = '6LdQjBMTAAAAAF6Rd1uYYmT_xTu7K0uMwuQ7JUaY';
 
 /*
 |--------------------------------------------------------------------------
