@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('phatpham.setting', [
+angular.module('simple-cms.setting', [
     'ui.router',
     'ui.bootstrap',
     'oc.lazyLoad',
@@ -13,7 +13,7 @@ angular.module('phatpham.setting', [
         var isLoggedin = ['$rootScope', '$state', '$http', '$q', '$timeout',
             function($rootScope, $state, $http, $q, $timeout) {
                 var deferred = $q.defer();
-                $http.get('/api/isLoggedin')
+                $http.get('api/isLoggedin')
                 .success(function(res) {
                     if (res.user && res.user.email) {
                         $rootScope.isLoggedin = true;
@@ -32,26 +32,26 @@ angular.module('phatpham.setting', [
         ];
         var files = ['$ocLazyLoad', function($ocLazyLoad) {
             return $ocLazyLoad.load([
-                '/admin/controllers/settingController.js',
-                '/admin/services/settingService.js',
-                '/admin/services/postService.js'
+                'public/admin/controllers/settingController.js',
+                'public/admin/services/settingService.js',
+                'public/admin/services/postService.js'
             ])
         }];
 
         $stateProvider
             .state('settingGeneral', {
                 url: '/setting/general',
-                templateUrl: '/admin/views/setting/general.html',
+                templateUrl: 'public/admin/views/setting/general.html',
                 resolve: {
-                    isLoggedin: isLoggedin,
+                    // isLoggedin: isLoggedin,
                     files: files
                 }
             })
             .state('settingNavigation', {
                 url: '/setting/navigation',
-                templateUrl: '/admin/views/setting/navigation.html',
+                templateUrl: 'public/admin/views/setting/navigation.html',
                 resolve: {
-                    isLoggedin: isLoggedin,
+                    // isLoggedin: isLoggedin,
                     files: files
                 }
             });

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('phatpham.user', [
+angular.module('simple-cms.user', [
     'ui.router',
     'ui.bootstrap',
     'oc.lazyLoad',
@@ -13,7 +13,7 @@ angular.module('phatpham.user', [
         var isLoggedin = ['$rootScope', '$state', '$http', '$q', '$timeout',
             function($rootScope, $state, $http, $q, $timeout) {
                 var deferred = $q.defer();
-                $http.get('/api/isLoggedin')
+                $http.get('api/isLoggedin')
                 .success(function(res) {
                     if (res.user && res.user.email) {
                         $rootScope.isLoggedin = true;
@@ -32,34 +32,35 @@ angular.module('phatpham.user', [
         ];
         var files = ['$ocLazyLoad', function($ocLazyLoad) {
             return $ocLazyLoad.load([
-                '/admin/controllers/userController.js',
-                '/admin/services/userService.js',
-                '/admin/directives/userDirective.js'
+                'public/admin/controllers/userController.js',
+                'public/admin/services/userService.js',
+                'public/admin/services/utils.js',
+                'public/admin/directives/userDirective.js'
             ])
         }];
 
         $stateProvider
             .state('users', {
                 url: '/users?key&page&num&role&status',
-                templateUrl: '/admin/views/user/list.html',
+                templateUrl: 'public/admin/views/user/list.html',
                 resolve: {
-                    isLoggedin: isLoggedin,
+                    // isLoggedin: isLoggedin,
                     files: files
                 }
             })
             .state('userCreate', {
                 url: '/user/create',
-                templateUrl: '/admin/views/user/details.html',
+                templateUrl: 'public/admin/views/user/details.html',
                 resolve: {
-                    isLoggedin: isLoggedin,
+                    // isLoggedin: isLoggedin,
                     files: files
                 }
             })
             .state('userDetails', {
                 url: '/user/:userId',
-                templateUrl: '/admin/views/user/details.html',
+                templateUrl: 'public/admin/views/user/details.html',
                 resolve: {
-                    isLoggedin: isLoggedin,
+                    // isLoggedin: isLoggedin,
                     files: files
                 }
             });

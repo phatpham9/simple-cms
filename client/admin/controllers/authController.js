@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('phatpham.auth')
+angular.module('simple-cms.auth')
 
 .controller('loginController', ['$rootScope', '$scope', '$state', 'authService',
     function($rootScope, $scope, $state, authService) {

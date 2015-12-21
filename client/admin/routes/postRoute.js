@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('phatpham.post', [
+angular.module('simple-cms.post', [
     'ui.router',
     'ui.bootstrap',
     'oc.lazyLoad',
@@ -15,7 +15,7 @@ angular.module('phatpham.post', [
         var isLoggedin = ['$rootScope', '$state', '$http', '$q', '$timeout',
             function($rootScope, $state, $http, $q, $timeout) {
                 var deferred = $q.defer();
-                $http.get('/api/isLoggedin')
+                $http.get('api/isLoggedin')
                 .success(function(res) {
                     if (res.user && res.user.email) {
                         $rootScope.isLoggedin = true;
@@ -34,35 +34,37 @@ angular.module('phatpham.post', [
         ];
         var files = ['$ocLazyLoad', function($ocLazyLoad) {
             return $ocLazyLoad.load([
-                '/admin/controllers/postController.js',
-                '/admin/services/postService.js',
-                '/admin/services/tagService.js',
-                '/admin/directives/postDirective.js'
+                'public/admin/controllers/postController.js',
+                'public/admin/services/postService.js',
+                'public/admin/services/tagService.js',
+                'public/admin/directives/postDirective.js',
+                'public/admin/services/utils.js',
+
             ])
         }];
 
         $stateProvider
             .state('posts', {
                 url: '/posts?key&page&num&tag&type',
-                templateUrl: '/admin/views/post/list.html',
+                templateUrl: 'public/admin/views/post/list.html',
                 resolve: {
-                    isLoggedin: isLoggedin,
+                    // isLoggedin: isLoggedin,
                     files: files
                 }
             })
             .state('postCreate', {
                 url: '/post/create',
-                templateUrl: '/admin/views/post/details.html',
+                templateUrl: 'public/admin/views/post/details.html',
                 resolve: {
-                    isLoggedin: isLoggedin,
+                    // isLoggedin: isLoggedin,
                     files: files
                 }
             })
             .state('postDetails', {
                 url: '/post/:postId',
-                templateUrl: '/admin/views/post/details.html',
+                templateUrl: 'public/admin/views/post/details.html',
                 resolve: {
-                    isLoggedin: isLoggedin,
+                    // isLoggedin: isLoggedin,
                     files: files
                 }
             });

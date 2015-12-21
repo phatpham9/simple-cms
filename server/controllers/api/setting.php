@@ -35,7 +35,7 @@ class Setting extends CI_Controller {
 			$this->output
 			->set_status_header('403')
 			->set_content_type('application/json')
-			->set_output(json_encode($result));
+			->set_output($this->model_setting->getDetails($id));
 		}	
 	}
 
@@ -46,29 +46,32 @@ class Setting extends CI_Controller {
 		$result = array();
 		
 		//Session is expired
-		if (!$this->tank_auth->is_logged_in()) {
-			$result['code'] 	= 0;
-			$result['message'] 	= 'Your Session is expried. Please login & try again';
+		// if (!$this->tank_auth->is_logged_in()) {
+		// 	$result['code'] 	= 0;
+		// 	$result['message'] 	= 'Your Session is expried. Please login & try again';
 
-			$this->output
-				->set_status_header('403')
-				->set_content_type('application/json')
-				->set_output(json_encode($result));
+		// 	$this->output
+		// 		->set_status_header('403')
+		// 		->set_content_type('application/json')
+		// 		->set_output(json_encode($result));
 
-			return;
-		}
+		// 	return;
+		// }
 
-		$this->form_validation->set_rules('value', 'Value of id', 'trim|required|min_length[2]');
-		
+		$this->form_validation->set_rules('value', 'Value of id', 'trim|required');
 		//check id exist
 		if($this->model_setting->checkSettingExist($id))
 		{
 			// validation ok
-			if ($this->form_validation->run()) 
-			{
+			// if ($this->form_validation->run()) 
+			// {
+				// Get data form angular ajax
+				$postdata = file_get_contents("php://input");
+      			$request = json_decode($postdata);
+
 				$data['id']= $id;
-				$data['value'] = $this->input->post('value');
-				
+				$data['value'] = $request->value;
+
 				// update to DB
 				if (!is_null($this->model_setting->update($data))) {
 					$result['code'] 	= 1;
@@ -78,7 +81,7 @@ class Setting extends CI_Controller {
 					$this->output
 					->set_status_header('200')
 					->set_content_type('application/json')
-					->set_output(json_encode($result));
+					->set_output(json_encode($data));
 				} 
 				// update to DB Fail
 				else {
@@ -91,15 +94,15 @@ class Setting extends CI_Controller {
 					->set_output(json_encode($result));
 				}
 			// validation fail
-			} else {
-				$result['code'] = 0;
-				$result['message'] = "Yolo";
+			// } else {
+			// 	$result['code'] = 0;
+			// 	$result['message'] = "Yolo";
 				
-				$this->output
-				->set_status_header('403')
-				->set_content_type('application/json')
-				->set_output(json_encode($result));
-			}
+			// 	$this->output
+			// 	->set_status_header('403')
+			// 	->set_content_type('application/json')
+			// 	->set_output(json_encode($result));
+			// }
 		}
 		else {
 			$result['code'] 	= 0;

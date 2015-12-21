@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('phatpham.post')
+angular.module('simple-cms.post')
 
 .directive('uniquepost', ['postService',
     function(postService) {

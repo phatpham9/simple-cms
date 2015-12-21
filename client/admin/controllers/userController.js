@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('phatpham.user')
+angular.module('simple-cms.user')
 
 .controller('userController', ['$scope', '$state', '$stateParams', '$location', 'userService',
     function($scope, $state, $stateParams, $location, userService) {

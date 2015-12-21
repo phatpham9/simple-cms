@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('phatpham')
+angular.module('simple-cms')
 
 .service('utils', function() {
     return {

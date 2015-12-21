@@ -1,15 +1,17 @@
 'use strict';
 
-angular.module('phatpham.setting')
+angular.module('simple-cms.setting')
 
 .factory('settingService', ['$resource',
     function($resource) {
-        return $resource('../api/setting/:settingId', {
-            settingId: '@_id'
+        var settingService = $resource('api/setting/:settingId', {
+            settingId: '@id'
         }, {
             update: {
-                method: 'PUT'
+                method: 'POST'
             }
         });
+        return settingService;
+
     }
 ]);

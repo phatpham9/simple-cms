@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('phatpham.setting')
+angular.module('simple-cms.setting')
 
 .controller('generalSettingController', ['$scope', 'settingService',
     function($scope, settingService) {
@@ -14,10 +14,23 @@ angular.module('phatpham.setting')
             form.$submitted = true;
 
             if (form.$valid) {
-                $scope.setting.$update(function() {
-                    alert('Settings saved!');
+                // $scope.setting.$update(function() {
+                //     alert('Settings saved!');
+                // }, function(res) {
+                //     alert(res.data.message);
+                // });
+    
+                var data = $scope.setting;
+                data.value = JSON.stringify(data.value);
+
+
+                settingService.update(data,
+                    function(setting) {
+                        setting.value = JSON.parse(setting.value); // Must parse string to json from db
+                        $scope.setting = setting;
+                        alert('Settings saved!');
                 }, function(res) {
-                    alert(res.data.message);
+                        alert(res.data.message);
                 });
             }
         };
@@ -26,7 +39,8 @@ angular.module('phatpham.setting')
             settingService.get({
                 settingId: 'general'
             }, function(setting) {
-                $scope.setting = setting;
+                setting.data.value = JSON.parse(setting.data.value); // Must parse string to json from db
+                $scope.setting = setting.data;
             }, function(res) {
                 alert(res.data.message);
             });

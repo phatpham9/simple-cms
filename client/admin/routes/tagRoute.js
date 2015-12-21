@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('phatpham.tag', [
+angular.module('simple-cms.tag', [
     'ui.router',
     'ui.bootstrap',
     'oc.lazyLoad',
@@ -14,7 +14,7 @@ angular.module('phatpham.tag', [
         var isLoggedin = ['$rootScope', '$state', '$http', '$q', '$timeout',
             function($rootScope, $state, $http, $q, $timeout) {
                 var deferred = $q.defer();
-                $http.get('/api/isLoggedin')
+                $http.get('api/isLoggedin')
                 .success(function(res) {
                     if (res.user && res.user.email) {
                         $rootScope.isLoggedin = true;
@@ -33,17 +33,17 @@ angular.module('phatpham.tag', [
         ];
         var files = ['$ocLazyLoad', function($ocLazyLoad) {
             return $ocLazyLoad.load([
-                '/admin/controllers/tagController.js',
-                '/admin/services/tagService.js'
+                'public/admin/controllers/tagController.js',
+                'public/admin/services/tagService.js'
             ])
         }];
 
         $stateProvider
             .state('tags', {
                 url: '/tags',
-                templateUrl: '/admin/views/tag/list.html',
+                templateUrl: 'public/admin/views/tag/list.html',
                 resolve: {
-                    isLoggedin: isLoggedin,
+                    // isLoggedin: isLoggedin,
                     files: files
                 }
             });

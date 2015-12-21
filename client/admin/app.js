@@ -1,12 +1,12 @@
 'use strict';
 
-angular.module('phatpham', [
+angular.module('simple-cms', [
     // sub-modules
-    'phatpham.auth',
-    'phatpham.post',
-    'phatpham.tag',
-    'phatpham.setting',
-    'phatpham.user',
+    'simple-cms.auth',
+    'simple-cms.post',
+    'simple-cms.tag',
+    'simple-cms.setting',
+    'simple-cms.user',
     // vendors
     'ui.router',
     'ui.bootstrap',
@@ -20,7 +20,7 @@ angular.module('phatpham', [
         var isLoggedin = ['$rootScope', '$state', '$http', '$q', '$timeout',
             function($rootScope, $state, $http, $q, $timeout) {
                 var deferred = $q.defer();
-                $http.get('/api/isLoggedin')
+                $http.get('api/isLoggedin')
                 .success(function(res) {
                     if (res.user && res.user.email) {
                         $rootScope.isLoggedin = true;
@@ -38,16 +38,16 @@ angular.module('phatpham', [
             }
         ];
         var files = ['$ocLazyLoad', function($ocLazyLoad) {
-            return $ocLazyLoad.load('/admin/controllers/homeController.js')
+            return $ocLazyLoad.load('public/admin/controllers/homeController.js')
         }];
 
         $urlRouterProvider.otherwise('/');
         $stateProvider
             .state('home', {
                 url: '/',
-                templateUrl: '/admin/views/home/index.html',
+                templateUrl: 'public/admin/views/home/index.html',
                 resolve: {
-                    isLoggedin: isLoggedin,
+                    // isLoggedin: isLoggedin,
                     files: files
                 }
             });

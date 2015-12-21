@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('phatpham.post')
+angular.module('simple-cms.post')
 
 .controller('postController', ['$scope', '$state', '$stateParams', '$location', 'postService', 'tagService',
     function($scope, $state, $stateParams, $location, postService, tagService) {
@@ -238,7 +238,7 @@ angular.module('phatpham.post')
         $scope.preview = function() {
             var modalPreview = $modal.open({
                 animation: true,
-                templateUrl: '/admin/views/directives/post-preview.html',
+                templateUrl: 'public/admin/views/directives/post-preview.html',
                 controller: 'postPreviewController',
                 size: 'lg',
                 resolve: {

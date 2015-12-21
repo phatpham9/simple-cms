@@ -20,82 +20,82 @@
                         <div class="form-group" ng-class="{'has-error' : form.$submitted && form.siteName.$invalid}">
                             <label for="site-name" class="col-md-2 control-label">Site name</label>
                             <div class="col-md-8">
-                                <input type="text" id="site-name" class="form-control" name="siteName" ng-model="setting.data.siteName" required tooltip="Site name is required" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.$submitted && form.siteName.$invalid">
+                                <input type="text" id="site-name" class="form-control" name="siteName" ng-model="setting.value.siteName" required tooltip="Site name is required" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.$submitted && form.siteName.$invalid">
                             </div>
                         </div>
                         <div class="form-group" ng-class="{'has-error' : form.$submitted && form.title.$invalid}">
                             <label for="title" class="col-md-2 control-label">Title</label>
                             <div class="col-md-8">
-                                <input type="text" id="title" class="form-control" name="title" ng-model="setting.data.title" required tooltip="Title is required" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.$submitted && form.title.$invalid">
+                                <input type="text" id="title" class="form-control" name="title" ng-model="setting.value.title" required tooltip="Title is required" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.$submitted && form.title.$invalid">
                             </div>
                         </div>
                         <hr>
                         <div class="form-group" ng-class="{'has-error' : form.$submitted && form.homepageHeading.$invalid}">
                             <label for="homepage-heading" class="col-md-2 control-label">Heading</label>
                             <div class="col-md-8">
-                                <input type="text" id="homepage-heading" class="form-control" name="homepageHeading" ng-model="setting.data.homepage.heading" required tooltip="Homepage heading is required" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.$submitted && form.homepageHeading.$invalid">
+                                <input type="text" id="homepage-heading" class="form-control" name="homepageHeading" ng-model="setting.value.homepage.heading" required tooltip="Homepage heading is required" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.$submitted && form.homepageHeading.$invalid">
                             </div>
                         </div>
                         <div class="form-group" ng-class="{'has-error' : form.$submitted && form.homepageSubheading.$invalid}">
                             <label for="homepage-subheading" class="col-md-2 control-label">Subheading</label>
                             <div class="col-md-8">
-                                <input type="text" id="homepage-subheading" class="form-control" name="homepageSubheading" ng-model="setting.data.homepage.subheading" required tooltip="Homepage subheading is required" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.$submitted && form.homepageSubheading.$invalid">
+                                <input type="text" id="homepage-subheading" class="form-control" name="homepageSubheading" ng-model="setting.value.homepage.subheading" required tooltip="Homepage subheading is required" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.$submitted && form.homepageSubheading.$invalid">
                             </div>
                         </div>
                         <hr>
                         <div class="form-group">
                             <label for="github" class="col-md-2 control-label">Gihub</label>
                             <div class="col-md-8">
-                                <input type="text" id="github" class="form-control" name="github" ng-model="setting.data.social.github">
+                                <input type="text" id="github" class="form-control" name="github" ng-model="setting.value.social.github">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="linkedin" class="col-md-2 control-label">Linkedin</label>
                             <div class="col-md-8">
-                                <input type="text" id="linkedin" class="form-control" name="linkedin" ng-model="setting.data.social.linkedin">
+                                <input type="text" id="linkedin" class="form-control" name="linkedin" ng-model="setting.value.social.linkedin">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="facebook" class="col-md-2 control-label">Facebook</label>
                             <div class="col-md-8">
-                                <input type="text" id="facebook" class="form-control" name="facebook" ng-model="setting.data.social.facebook">
+                                <input type="text" id="facebook" class="form-control" name="facebook" ng-model="setting.value.social.facebook">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="instagram" class="col-md-2 control-label">Instagram</label>
                             <div class="col-md-8">
-                                <input type="text" id="instagram" class="form-control" name="instagram" ng-model="setting.data.social.instagram">
+                                <input type="text" id="instagram" class="form-control" name="instagram" ng-model="setting.value.social.instagram">
                             </div>
                         </div>
                         <hr>
                         <div class="form-group" ng-class="{'has-error' : form.$submitted && form.type.$invalid}">
                             <label for="type" class="col-md-2 control-label">Site type</label>
                             <div class="col-md-8">
-                                <input type="text" id="type" class="form-control" name="type" ng-model="setting.data.meta.type" required tooltip="Site type is required" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.$submitted && form.type.$invalid">
+                                <input type="text" id="type" class="form-control" name="type" ng-model="setting.value.meta.type" required tooltip="Site type is required" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.$submitted && form.type.$invalid">
                             </div>
                         </div>
                         <div class="form-group" ng-class="{'has-error' : form.$submitted && form.url.$invalid}">
                             <label for="url" class="col-md-2 control-label">URL</label>
                             <div class="col-md-8">
-                                <input type="text" id="url" class="form-control" name="url" ng-model="setting.data.meta.url" required tooltip="URL is required" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.$submitted && form.url.$invalid">
+                                <input type="text" id="url" class="form-control" name="url" ng-model="setting.value.meta.url" required tooltip="URL is required" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.$submitted && form.url.$invalid">
                             </div>
                         </div>
                         <div class="form-group" ng-class="{'has-error' : form.$submitted && form.description.$invalid}">
                             <label for="description" class="col-md-2 control-label">Description</label>
                             <div class="col-md-8">
-                                <input type="text" id="description" class="form-control" name="description" ng-model="setting.data.meta.description" required tooltip="Description is required" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.$submitted && form.description.$invalid">
+                                <input type="text" id="description" class="form-control" name="description" ng-model="setting.value.meta.description" required tooltip="Description is required" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.$submitted && form.description.$invalid">
                             </div>
                         </div>
                         <div class="form-group" ng-class="{'has-error' : form.$submitted && form.author.$invalid}">
                             <label for="author" class="col-md-2 control-label">Author</label>
                             <div class="col-md-8">
-                                <input type="text" id="author" class="form-control" name="author" ng-model="setting.data.meta.author" required tooltip="Author is required" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.$submitted && form.author.$invalid">
+                                <input type="text" id="author" class="form-control" name="author" ng-model="setting.value.meta.author" required tooltip="Author is required" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.$submitted && form.author.$invalid">
                             </div>
                         </div>
                         <div class="form-group mb0" ng-class="{'has-error' : form.$submitted && form.keywords.$invalid}">
                             <label for="keywords" class="col-md-2 control-label">Keywords</label>
                             <div class="col-md-8">
-                                <input type="text" id="keywords" class="form-control" name="keywords" ng-model="setting.data.meta.keywords" placement="Separate by commas" required tooltip="Keywords is required" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.$submitted && form.keywords.$invalid">
+                                <input type="text" id="keywords" class="form-control" name="keywords" ng-model="setting.value.meta.keywords" placement="Separate by commas" required tooltip="Keywords is required" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.$submitted && form.keywords.$invalid">
                             </div>
                         </div>
                     </div>

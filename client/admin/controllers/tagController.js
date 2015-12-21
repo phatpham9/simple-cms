@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('phatpham.tag')
+angular.module('simple-cms.tag')
 
 .controller('tagController', ['$scope', '$state', '$stateParams', 'tagService',
     function($scope, $state, $stateParams, tagService) {

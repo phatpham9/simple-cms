@@ -1,10 +1,10 @@
 'use strict';
 
-angular.module('phatpham')
+angular.module('simple-cms')
 
 .directive('sidebar', function() {
     return {
-        templateUrl: '/admin/views/directives/sidebar.html',
+        templateUrl: 'public/admin/views/directives/sidebar.html',
         restrict: 'E',
         replace: true,
         controller: ['$scope', '$state',

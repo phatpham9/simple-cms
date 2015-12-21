@@ -1,10 +1,10 @@
 'use strict';
 
-angular.module('phatpham')
+angular.module('simple-cms')
 
 .directive('header', function() {
     return {
-        templateUrl: '/admin/views/directives/header.html',
+        templateUrl: 'public/admin/views/directives/header.html',
         restrict: 'E',
         replace: true,
         controller: ['$rootScope', '$scope',

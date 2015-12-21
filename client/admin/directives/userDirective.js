@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('phatpham.user')
+angular.module('simple-cms.user')
 
 .directive('uniqueemail', ['userService',
     function(userService) {

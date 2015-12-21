@@ -1,10 +1,10 @@
 'use strict';
 
-angular.module('phatpham')
+angular.module('simple-cms')
 
 .directive('headerNotification', function() {
     return {
-        templateUrl: '/admin/views/directives/header-notification.html',
+        templateUrl: 'public/admin/views/directives/header-notification.html',
         restrict: 'E',
         replace: true,
         controller: ['$rootScope', '$scope', '$http', '$state',
