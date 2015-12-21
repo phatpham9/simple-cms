@@ -20,7 +20,7 @@ module.exports = function(grunt) {
             // angular apps
             {
                 expand: true,
-                cwd: './private',
+                cwd: './client',
                 src: ['**/*.!(coffee|less)'],
                 dest: 'public'
             },
@@ -31,6 +31,11 @@ module.exports = function(grunt) {
                 src: [
                     'jquery/dist/jquery.js',
                     'angular/angular.js',
+                    'angular-sanitize/angular-sanitize.js',
+                    'textAngular/dist/textAngular-rangy.min.js',
+                    'textAngular/dist/textAngular-sanitize.min.js',
+                    'textAngular/dist/textAngular.min.js',
+                    'ng-tags-input/ng-tags-input.js',
                     'oclazyload/dist/ocLazyLoad.js',
                     'angular-bootstrap/ui-bootstrap.js',
                     'angular-bootstrap/ui-bootstrap-tpls.js',
@@ -50,7 +55,10 @@ module.exports = function(grunt) {
                     'font-awesome/css/font-awesome.min.css',
                     'font-awesome/css/font-awesome.css.map',
                 	'bootstrap/dist/css/bootstrap.min.css',
-                	'normalize.css/normalize.css'
+                	'normalize.css/normalize.css',
+                    'textAngular/dist/textAngular.css',
+                    'ng-tags-input/ng-tags-input.css',
+                    'ng-tags-input/ng-tags-input.bootstrap.css'
                 ],
                 flatten: true,
                 dest: 'public/shared/styles'
