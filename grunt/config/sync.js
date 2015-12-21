@@ -15,7 +15,7 @@ module.exports = function(grunt) {
     grunt.config.set('sync', {
         public: {
             files: [{
-                cwd: './private',
+                cwd: './client',
                 src: ['**/*.!(coffee)'],
                 dest: 'public'
             }]

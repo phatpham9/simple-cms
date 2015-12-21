@@ -15,7 +15,7 @@
 module.exports = function(grunt) {
 	grunt.config.set('watch', {
         public: {
-            files: ['private/**/*'],
+            files: ['client/**/*'],
             tasks: ['sync', 'linkAssets']
         },
         pipeline: {
