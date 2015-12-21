@@ -68,11 +68,11 @@ $config['password_max_length'] = 20;
 | 'login_attempt_expire' = Time to live for every attempt to login. Default is 24 hours (60*60*24).
 |--------------------------------------------------------------------------
 */
-$config['login_by_username'] = TRUE;
+$config['login_by_username'] = FALSE;
 $config['login_by_email'] = TRUE;
 $config['login_record_ip'] = TRUE;
 $config['login_record_time'] = TRUE;
-$config['login_count_attempts'] = TRUE;
+$config['login_count_attempts'] = FALSE;
 $config['login_max_attempts'] = 5;
 $config['login_attempt_expire'] = 60*60*24;
 

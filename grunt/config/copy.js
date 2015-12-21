@@ -31,18 +31,18 @@ module.exports = function(grunt) {
                 src: [
                     'jquery/dist/jquery.js',
                     'angular/angular.js',
-                    'angular-sanitize/angular-sanitize.js',
-                    'textAngular/dist/textAngular-rangy.min.js',
-                    'textAngular/dist/textAngular-sanitize.min.js',
-                    'textAngular/dist/textAngular.min.js',
-                    'ng-tags-input/ng-tags-input.js',
                     'oclazyload/dist/ocLazyLoad.js',
                     'angular-bootstrap/ui-bootstrap.js',
                     'angular-bootstrap/ui-bootstrap-tpls.js',
                     'angular-cookies/angular-cookies.js',
                     'angular-resource/angular-resource.js',
                     'angular-ui-router/release/angular-ui-router.js',
-                    'ngprogress/build/ngProgress.js'
+                    'ngprogress/build/ngProgress.js',
+                    'angular-sanitize/angular-sanitize.js',
+                    'textAngular/dist/textAngular-rangy.min.js',
+                    'textAngular/dist/textAngular-sanitize.min.js',
+                    'textAngular/dist/textAngular.min.js',
+                    'ng-tags-input/ng-tags-input.js'
                 ],
                 flatten: true,
                 dest: 'public/shared/scripts'

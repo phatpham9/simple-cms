@@ -15,7 +15,12 @@
         <link rel="icon" href="">-->
 
         <!--STYLES-->
-        <link rel="stylesheet" href="public/shared/styles/admin.min.css">
+        <link rel="stylesheet" href="public/shared/styles/normalize.css">
+        <link rel="stylesheet" href="public/shared/styles/bootstrap.min.css">
+        <link rel="stylesheet" href="public/shared/styles/font-awesome.min.css">
+        <link rel="stylesheet" href="public/shared/styles/ng-tags-input.bootstrap.css">
+        <link rel="stylesheet" href="public/shared/styles/ng-tags-input.css">
+        <link rel="stylesheet" href="public/shared/styles/textAngular.css">
         <!--STYLES END-->
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -32,7 +37,26 @@
         </div>
 
         <!--SCRIPTS-->
-        <script src="public/shared/scripts/admin.min.js"></script>
+        <script src="public/shared/scripts/jquery.js"></script>
+        <script src="public/shared/scripts/angular.js"></script>
+        <script src="public/shared/scripts/ui-bootstrap.js"></script>
+        <script src="public/shared/scripts/ui-bootstrap-tpls.js"></script>
+        <script src="public/shared/scripts/angular-cookies.js"></script>
+        <script src="public/shared/scripts/angular-resource.js"></script>
+        <script src="public/shared/scripts/angular-sanitize.js"></script>
+        <script src="public/shared/scripts/angular-ui-router.js"></script>
+        <script src="public/shared/scripts/ng-tags-input.js"></script>
+        <script src="public/shared/scripts/ngProgress.js"></script>
+        <script src="public/shared/scripts/ocLazyLoad.js"></script>
+        <script src="public/shared/scripts/textAngular-rangy.min.js"></script>
+        <script src="public/shared/scripts/textAngular-sanitize.min.js"></script>
+        <script src="public/shared/scripts/textAngular.min.js"></script>
+        <script src="public/admin/app.js"></script>
+        <script src="public/admin/routes/authRoute.js"></script>
+        <script src="public/admin/routes/postRoute.js"></script>
+        <script src="public/admin/routes/settingRoute.js"></script>
+        <script src="public/admin/routes/tagRoute.js"></script>
+        <script src="public/admin/routes/userRoute.js"></script>
         <!--SCRIPTS END-->
     </body>
 </html>
