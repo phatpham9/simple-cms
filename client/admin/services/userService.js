@@ -10,12 +10,20 @@ angular.module('simple-cms.user')
             update: {
                 method: 'POST'
             },
-            delete : {
-                method: 'POST'  
+            query:{
+                method: 'GET',
+                isArray: false
             }
             
         });
-        userService.count = $resource('api/user/count').get;
+        userService.delete = $resource('api/user/:userId/delete',{
+             userId: '@id'
+        },{
+            delete :{
+                method: 'POST'
+            }
+        }).delete;
+        userService.count = $resource('api/user').get;
         userService.exist = $resource('api/user/exist').get;
 
         return userService;

@@ -22,9 +22,9 @@ class Model_user extends CI_Model {
 					 . 		"`isDeleted` = 0 "
 					 .      "AND 
 					 			( 
-					 				`name` like '%".$search."%' 
+					 				`username` like '%".$search."%' 
 					 			OR 
-					 				`description` like '%".$search."%'
+					 				`email` like '%".$search."%'
 					 			)"
 					 . " ORDER BY ".(($pieces[0] === '-') ? "`".$pieces[1]."` DESC" : "`".$pieces[1]."` ASC")
 					 . " LIMIT ". $limit
@@ -38,8 +38,8 @@ class Model_user extends CI_Model {
 	{
 		$user['created'] = date('Y-m-d G:i:s', time());
 		$user['modified'] = date('Y-m-d G:i:s', time());  
-		// $user['activated'] = 1; 
-		$user['banned'] = 0; 
+		$user['isDeleted'] = 0; 
+		$user['activated'] = 1; 
 
 		if ($this->db->insert($this->tblUser, $user)) {
 			$user['id'] = $this->db->insert_id();
@@ -51,13 +51,20 @@ class Model_user extends CI_Model {
 		}
 	}
 
-	function getDetails($id)
+	function getDetails($id,$email)
 	{
 		$this->db->distinct();
-		$this->db->where($this->tblUser.'.id',$id);
-		// $this->db->where($this->tblUser.'.isDeleted',0);
+		!empty($email) ? $this->db->where($this->tblUser.'.email',$email) : $this->db->where($this->tblUser.'.id',$id);
+		if(!empty($email) && empty($id)){
+			$this->db->where($this->tblUser.'.email',$email);
+		}elseif(!empty($id) && empty($email)){
+			$this->db->where($this->tblUser.'.id',$id);
+		}else{
+			$this->db->where($this->tblUser.'.email',$email);
+			$this->db->where($this->tblUser.'.id',$id);
+		}
+		$this->db->where($this->tblUser.'.isDeleted',0);
 		$query = $this->db->get($this->tblUser);
-
 		return $query->num_rows() == 1 ? $query->row_array() : NULL;
 	}
 
@@ -74,7 +81,7 @@ class Model_user extends CI_Model {
 		//if (!$this->db->where('id', $id)->delete($this->tblUser)) ? return FALSE : return TRUE;
 		$user = array();
 		$user['modified'] = date('Y-m-d G:i:s', time());  
-		$user['banned'] = 1; 
+		$user['isDeleted'] = 1; 
 
 		$this->db->where('id', $id);
 		return $this->db->update($this->tblUser, $user);

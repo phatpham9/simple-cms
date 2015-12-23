@@ -46,17 +46,18 @@ class Setting extends CI_Controller {
 		$result = array();
 		
 		//Session is expired
-		// if (!$this->tank_auth->is_logged_in()) {
-		// 	$result['code'] 	= 0;
-		// 	$result['message'] 	= 'Your Session is expried. Please login & try again';
+		if (!$this->tank_auth->is_logged_in()) {
+			$result['code'] 	= 0;
+			$result['message'] 	= 'Your Session is expried. Please login & try again';
 
-		// 	$this->output
-		// 		->set_status_header('403')
-		// 		->set_content_type('application/json')
-		// 		->set_output(json_encode($result));
+			$this->output
+				->set_status_header('403')
+				->set_content_type('application/json')
+				->set_output(json_encode($result));
 
-		// 	return;
-		// }
+			return;
+		}
+		
 		$_POST = json_decode(file_get_contents("php://input"), true);
 		$this->form_validation->set_rules('value', 'Value of id', 'trim|required');
 		//check id exist

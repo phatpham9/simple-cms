@@ -24,7 +24,7 @@
                         <div class="form-group" ng-class="{'has-error': form.email.$error.uniqueemail || (form.$submitted && form.email.$invalid)}">
                             <label for="email" class="col-md-2 control-label">Login email</label>
                             <div class="col-md-8">
-                                <input type="email" id="email" class="form-control" name="email" ng-model="user.email" required uniqueemail="{{user._id}}" tooltip="{{form.email.$error.required ? 'Email is required' : (form.email.$error.email ? 'Invalid email address' : (form.email.$error.uniqueemail ? 'Email is already used' : ''))}}" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.email.$error.uniqueemail || (form.$submitted && form.email.$invalid)">
+                                <input type="email" id="email" class="form-control" name="email" ng-model="user.email" required uniqueemail="{{user.id}}" tooltip="{{form.email.$error.required ? 'Email is required' : (form.email.$error.email ? 'Invalid email address' : (form.email.$error.uniqueemail ? 'Email is already used' : ''))}}" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.email.$error.uniqueemail || (form.$submitted && form.email.$invalid)">
                             </div>
                         </div>
                         <div class="form-group" ng-class="{'has-error': form.$submitted && form.password.$invalid}">
@@ -36,7 +36,7 @@
                         <div class="form-group mb0" ng-class="{'has-error': form.$submitted && form.enable.$invalid}">
                             <label for="enable" class="col-md-2 control-label">Enable</label>
                             <div class="col-md-8">
-                                <select name="enable" id="enable" class="form-control" ng-model="user.isEnabled" ng-options="enable.value as enable.text for enable in [{text: 'Yes', value: true}, {text: 'No', value: false}]" required tooltip="Enable is required" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.$submitted && form.enable.$invalid"></select>
+                                <select name="enable" id="enable" class="form-control" ng-model="user.isEnabled" ng-options="enable.value as enable.text for enable in [{text: 'Yes', value: '1'}, {text: 'No', value: '0'}]" required tooltip="Enable is required" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.$submitted && form.enable.$invalid"></select>
                             </div>
                         </div>
                     </div>

@@ -15,8 +15,6 @@ angular.module('simple-cms.auth', [
                 var deferred = $q.defer();
                 $http.get('api/auth/login')
                 .success(function(res) {
-                    // $timeout(deferred.reject);
-                    // $state.go('home');
                     if(res.code == 2 || res.code == 1){
                         $timeout(deferred.reject);
                         $state.go('home');

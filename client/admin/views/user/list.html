@@ -43,11 +43,11 @@
                             <tr ng-repeat="user in filteredResults">
                                 <td>{{$index + 1}}</td>
                                 <td>
-                                    <a ui-sref="userDetails({userId: user._id})">{{user.email}}</a>
+                                    <a ui-sref="userDetails({userId: user.id})">{{user.email}}</a>
                                 </td>
                                 <td>{{user.roles.join(', ')}}</td>
                                 <td>
-                                    <span class="label" ng-class="{'label-success' : user.isEnabled, 'label-default' : !user.isEnabled}">{{user.isEnabled ? 'Enabled' : 'Disabled'}}</span>
+                                    <span class="label" ng-class="{'label-success' : user.isEnabled == '1', 'label-default' : user.isEnabled == '0'}">{{user.isEnabled == '1' ? 'Enabled' : 'Disabled'}}</span>
                                 </td>
                                 <td class="text-right">
                                     <button type="button" class="btn btn-xs btn-danger" ng-click="delete(user)"><i class="fa fa-times"></i></button>

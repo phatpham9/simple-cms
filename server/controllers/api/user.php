@@ -46,8 +46,9 @@ class user extends CI_Controller {
 	// Get item details
 	public function get($id)
 	{
+		$query = !empty($this->input->get('query')) ? json_decode($this->input->get('query'))->email : '';
 		$result = array();
-		if (!is_null($userInfo = $this->model_user->getDetails($id))) {
+		if (!is_null($userInfo = $this->model_user->getDetails($id,$query))) {
 			$result['code'] 	= 1;
 			$result['message'] 	= 'get user successfully';
 			$result['data'] 	= $userInfo;
@@ -63,7 +64,7 @@ class user extends CI_Controller {
 			$result['message'] 	= 'get user error';
 			
 			$this->output
-			->set_status_header('403')
+			->set_status_header('200')
 			->set_content_type('application/json')
 			->set_output(json_encode($result));
 		}
@@ -87,26 +88,23 @@ class user extends CI_Controller {
 
 			return;
 		}
-
+		$_POST = json_decode(file_get_contents("php://input"), true);
 		$this->form_validation->set_rules('email', 'Email', 'trim|required|xss_clean|valid_email');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('enable', 'Enable', 'trim|required');
 		
 		
 		// validation ok
 		if ($this->form_validation->run()) {
-			$use_username = $this->input->post('username');
-			$email			= $this->input->post('email');
-			$password 			= $this->input->post('password');
-			$email_activation = !$this->input->post('enable');
 
-			// Insert to DB
-			if (!is_null($data = $this->tank_auth->create_user($use_username ? $username : '',$email,$password,$email_activation))) 
-			{			
-			// if (!is_null($userInfo = $this->model_user->create($data))) {
+			$data['email'] = $this->input->post('email');
+			$data['password'] = $this->tank_auth->hash_password($this->input->post('password'));
+			$data['isEnabled'] = $this->input->post('isEnabled');
+				
+			// Insert to DB			
+			if (!is_null($userInfo = $this->model_user->create($data))) {
 				$result['code'] 	= 1;
 				$result['message'] 	= 'Create user successfully';
-				// $result['data'] 	= $userInfo;
+				$result['data'] 	= $userInfo;
 
 				$this->output
 				->set_status_header('200')
@@ -145,7 +143,7 @@ class user extends CI_Controller {
 		$result = array();
 		
 		//Session is expired
-		if (!$this->tank_auth->is_logged_in()) {
+		if (!$this->tank_auth->is_logged_in()) {/**/
 			$result['code'] = 0;
 			$result['message'] = 'Your Session is expried. Please login & try again';
 
@@ -156,32 +154,23 @@ class user extends CI_Controller {
 
 			return;
 		}
-		
-		$this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('enable', 'Enable', 'trim|required');
+		$_POST = json_decode(file_get_contents("php://input"), true);
+		$this->form_validation->set_rules('password', 'Password', 'trim|xss_clean');
 		
 		//check user exist
 		if($this->model_user->checkUserExist($id))
 		{	
 			// validation ok
 			if ($this->form_validation->run()) {
-				$data['id']				= $id;
-				$data['password'] 			= $this->input->post('password');
-				$enable	= $this->input->post('enable');
-				
-				if($enable == "true") {
-					$data['activated'] = 1;
-				} else {
-					$data['activated'] = 0;
-				}
-
-				$data['password'] = $this->tank_auth->hash_password($data['password']);
+				$data['id'] = $id;
+				!empty($this->input->post('password')) ? $data['password'] = $this->tank_auth->hash_password($this->input->post('password')) : '';
+				$data['isEnabled']	= $this->input->post('isEnabled');
 
 				// update to DB
 				if (!is_null($this->model_user->update($data))) {
 					$result['code'] 	= 1;
 					$result['message'] 	= 'Update user successfully';
-					$result['data'] 	= $this->model_user->getDetails($data['id']);
+					$result['data'] 	= $this->model_user->getDetails($data['id'],'');
 					
 					$this->output
 					->set_status_header('200')

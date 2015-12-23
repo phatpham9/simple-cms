@@ -35,20 +35,22 @@ angular.module('simple-cms.user')
         };
         $scope.delete = function(user) {
             if (user && confirm('Delete "' + user.email + '"?')) {
-                user.$remove(function() {
-                    $scope.users.forEach(function(_user, index) {
-                        if (_user._id == user._id) {
-                            $scope.users.splice(index, 1);
-                        }
-                    });
-                    $scope.filteredResults.forEach(function(_user, index) {
-                        if (_user._id == user._id) {
-                            $scope.filteredResults.splice(index, 1);
-                        }
-                    });
+                userService.delete(user,
+                    function() {
+                        $scope.users.forEach(function(_user, index) {
+                            if (_user.id == user.id) {
+                                $scope.users.splice(index, 1);
+                            }
+                        });
+                        $scope.filteredResults.forEach(function(_user, index) {
+                            if (_user.id == user.id) {
+                                $scope.filteredResults.splice(index, 1);
+                            }
+                        });
                 }, function(res) {
                     alert(res.data.message);
                 });
+
             }
         };
         $scope.onChangeSearchKey = function() {
@@ -57,17 +59,14 @@ angular.module('simple-cms.user')
         $scope.loadMore = function() {
             if ($scope.count.fetched < $scope.count.total) {
                 var query = {
-                    search: $scope.search.key ? JSON.stringify({
-                        key: $scope.search.key,
-                        attributes: ['email']
-                    }) : null,
+                    search: $scope.search.key || null,
                     skip: $scope.search.num * ++$scope.search.page,
                     limit: $scope.search.num
                 }
 
                 userService.query(query, function(users) {
-                    $scope.count.fetched += users.length;
-                    $scope.users = $scope.users.concat(users);
+                    $scope.count.fetched += users.data.length;
+                    $scope.users = $scope.users.concat(users.data);
                     filter();
                 }, function(res) {
                     alert(res.data.message);
@@ -77,31 +76,27 @@ angular.module('simple-cms.user')
         // Another functions
         function countUsers() {
             var query = {
-                search: $scope.search.key ? JSON.stringify({
-                    key: $scope.search.key,
-                    attributes: ['email']
-                }) : null
+                search: $scope.search.key  || null,
+                skip: $scope.search.num * $scope.search.page,
+                limit: $scope.search.num
             }
 
             userService.count(query, function(count) {
-                $scope.count.total = count.total;
+                $scope.count.total = count.data.length;
             }, function(res) {
                 alert(res.data.message);
             });
         }
         function loadUsers() {
             var query = {
-                search: $scope.search.key ? JSON.stringify({
-                    key: $scope.search.key,
-                    attributes: ['email']
-                }) : null,
+                search: $scope.search.key || null,
                 skip: $scope.search.num * $scope.search.page,
                 limit: $scope.search.num
-            }
+            };
 
             userService.query(query, function(users) {
-                $scope.count.fetched = users.length;
-                $scope.users = users;
+                $scope.count.fetched = users.data.length;
+                $scope.users = users.data;
                 filter();
             }, function(res) {
                 alert(res.data.message);
@@ -118,7 +113,7 @@ angular.module('simple-cms.user')
                 if (!$scope.filter.role || user.roles.indexOf($scope.filter.role) != -1) {
                     chkRole = true;
                 }
-                if ($scope.filter.status == null || (user.isEnabled && $scope.filter.status == 'enabled') || (!user.isEnabled && $scope.filter.status == 'disabled')) {
+                if ($scope.filter.status == null || (user.isEnabled == '1' && $scope.filter.status == 'enabled') || (user.isEnabled == '0' && $scope.filter.status == 'disabled')) {
                     chkStatus = true;
                 }
 
@@ -141,7 +136,7 @@ angular.module('simple-cms.user')
                 $scope.user = {
                     email: null,
                     password: null,
-                    isEnabled: true
+                    isEnabled: '1'
                 };
             } else {
                 loadUser();
@@ -174,14 +169,15 @@ angular.module('simple-cms.user')
                     email: $scope.user.email
                 };
                 if ($state.is('userDetails')) {
-                    query._id = {
-                        $ne: $scope.user._id
+                    query.id = {
+                        $ne: $scope.user.id
                     }
                 }
+                
                 userService.exist({
                     query: JSON.stringify(query)
                 }, function(res) {
-                    if (!res.exist) {
+                    if (!res.code) {
                         form.email.$setValidity('uniqueemail', true);
                         saveUser();
                     } else {
@@ -203,7 +199,8 @@ angular.module('simple-cms.user')
             userService.get({
                 userId: $stateParams.userId
             }, function(user) {
-                $scope.user = user;
+                $scope.user = user.data;
+                $state.is('userDetails') ? $scope.user.password = '' : ''; 
             }, function(res) {
                 alert(res.data.message);
             });
@@ -212,15 +209,21 @@ angular.module('simple-cms.user')
             if ($state.is('userCreate')) {
                 var user = new userService($scope.user);
                 user.$save(function() {
-                    $state.go('userDetails', {userId: user._id});
+                    $state.go('userDetails', {userId: user.data.id});
                 }, function(res) {
                     alert(res.data.message);
                 });
             } else {
-                $scope.user.$update(function() {
-                    $state.go('users');
+                // $scope.user.$update(function() {
+                //     $state.go('users');
+                // }, function(res) {
+                //     alert(res.data.message);
+                // });
+                userService.update($scope.user,
+                    function(setting) {
+                         $state.go('users');
                 }, function(res) {
-                    alert(res.data.message);
+                        alert(res.data.message);
                 });
             }
         }

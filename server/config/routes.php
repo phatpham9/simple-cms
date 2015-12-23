@@ -66,3 +66,7 @@ $route['api/post/(:any)'] 				= $_SERVER['REQUEST_METHOD'] == 'GET' ? '/api/post
 $route['api/post/(:any)/delete'] 		= $_SERVER['REQUEST_METHOD'] == 'POST' ? '/api/post/delete/$1' : '/api/error/error_404';
 // setting route
 $route['api/setting/(:any)'] 			= $_SERVER['REQUEST_METHOD'] == 'GET' ? '/api/setting/get/$1' : ($_SERVER['REQUEST_METHOD'] == 'POST' ? '/api/setting/update/$1' : '/api/error/error_404');
+// user route
+$route['api/user'] 						= $_SERVER['REQUEST_METHOD'] == 'GET' ? '/api/user/all'	: ($_SERVER['REQUEST_METHOD'] == 'POST' ? '/api/user/create' : '/api/error/error_404');
+$route['api/user/(:any)'] 				= $_SERVER['REQUEST_METHOD'] == 'GET' ? '/api/user/get/$1' : ($_SERVER['REQUEST_METHOD'] == 'POST' ? '/api/user/update/$1' : '/api/error/error_404');
+$route['api/user/(:any)/delete'] 		= $_SERVER['REQUEST_METHOD'] == 'POST' ? '/api/user/delete/$1' : '/api/user/error_404';

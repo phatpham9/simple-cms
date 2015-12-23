@@ -14,20 +14,20 @@ angular.module('simple-cms.tag', [
         var isLoggedin = ['$rootScope', '$state', '$http', '$q', '$timeout',
             function($rootScope, $state, $http, $q, $timeout) {
                 var deferred = $q.defer();
-                $http.get('api/isLoggedin')
+                $http.get('api/auth/login')
                 .success(function(res) {
-                    if (res.user && res.user.email) {
+                    if(res.code == 2 || res.code == 1){
                         $rootScope.isLoggedin = true;
                         $timeout(deferred.resolve);
-                    } else {
+                    }else{
                         $timeout(deferred.reject);
                         $state.go('login');
                     }
                 })
-                .error(function(error) {
-                    $timeout(deferred.reject);
-                    $state.go('login');
-                });
+                // .error(function(error) {
+                //     $timeout(deferred.reject);
+                //     $state.go('login');
+                // });
                 return deferred.promise;
             }
         ];
@@ -43,7 +43,7 @@ angular.module('simple-cms.tag', [
                 url: '/tags',
                 templateUrl: 'public/admin/views/tag/list.html',
                 resolve: {
-                    // isLoggedin: isLoggedin,
+                    isLoggedin: isLoggedin,
                     files: files
                 }
             });
