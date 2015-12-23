@@ -97,7 +97,7 @@ class Post extends CI_Controller {
 		if ($this->form_validation->run() == TRUE) {
 			$data['title']			= $this->input->post('title');
 			$data['slug'] 			= $this->input->post('slug');
-			$data['description']	= $this->input->post('description');
+			$data['description']	= $this->input->post('briefIntroduction');
 			$data['content']		= $this->input->post('content');
 			$data['author'] 		= $this->input->post('author');
 			$data['isStaticPage']	= $this->input->post('isStaticPage');

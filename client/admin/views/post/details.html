@@ -61,13 +61,13 @@
                                 <p class="help-block">{{post.numWords > 1 ? (post.numWords | number) + ' words' : (post.numWords | number) + ' word'}}<br>{{post.readingSpeed + ' read'}}</p>
                             </div>
                         </div>
-                        <div class="form-group" ng-class="{'has-error': form.$submitted && form.staticPage.$invalid, 'mb0': post.isStaticPage}">
+                        <div class="form-group" ng-class="{'has-error': form.$submitted && form.staticPage.$invalid, 'mb0': post.isStaticPage == '1'}">
                             <label for="static-page" class="col-md-2 control-label">Static page</label>
                             <div class="col-md-8">
                                 <select name="staticPage" id="static-page" class="form-control" ng-model="post.isStaticPage" ng-options="staticPage.value as staticPage.text for staticPage in [{text: 'Yes', value: '1'}, {text: 'No', value: '0'}]" required tooltip="Static page is required" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.$submitted && form.staticPage.$invalid"></select>
                             </div>
                         </div>
-                        <div class="form-group" ng-hide="post.isStaticPage">
+                        <div class="form-group" ng-hide="post.isStaticPage == '1'">
                             <label for="tags" class="col-md-2 control-label">Tags</label>
                             <div class="col-md-8">
                                 <tags-input id="tags" ng-model="post.tags" display-property="name" add-on-space="true" addOnPaste="true">
@@ -75,13 +75,13 @@
                                 </tags-input>
                             </div>
                         </div>
-                        <div class="form-group" ng-hide="post.isStaticPage" ng-class="{'has-error': form.$submitted && form.date.$invalid}">
+                        <div class="form-group" ng-hide="post.isStaticPage == '1'" ng-class="{'has-error': form.$submitted && form.date.$invalid}">
                             <label for="date" class="col-md-2 control-label">Date</label>
                             <div class="col-md-8">
                                 <input type="text" id="date" class="form-control" name="date" ng-model="post.date" readonly required tooltip="Date is required" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.$submitted && form.date.$invalid">
                             </div>
                         </div>
-                        <div class="form-group mb0" ng-hide="post.isStaticPage" ng-class="{'has-error': form.$submitted && form.publish.$invalid}">
+                        <div class="form-group mb0" ng-hide="post.isStaticPage == '1'" ng-class="{'has-error': form.$submitted && form.publish.$invalid}">
                             <label for="publish" class="col-md-2 control-label">Publish</label>
                             <div class="col-md-8">
                                 <select name="publish" id="publish" class="form-control" ng-model="post.isPublished" ng-options="publish.value as publish.text for publish in [{text: 'Yes', value: '1'}, {text: 'No', value: '0'}]" required tooltip="Publish is required" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.$submitted && form.publish.$invalid"></select>

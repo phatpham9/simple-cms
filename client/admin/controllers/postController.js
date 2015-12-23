@@ -37,19 +37,20 @@ angular.module('simple-cms.post')
         };
         $scope.delete = function(post) {
             if (post && confirm('Delete "' + post.title + '"?')) {
-                post.$remove(function() {
-                    $scope.posts.forEach(function(_post, index) {
-                        if (_post._id == post._id) {
-                            $scope.posts.splice(index, 1);
-                        }
-                    });
-                    $scope.filteredResults.forEach(function(_post, index) {
-                        if (_post._id == post._id) {
-                            $scope.filteredResults.splice(index, 1);
-                        }
-                    });
+                 postService.delete(post,
+                    function(setting) {
+                        $scope.posts.forEach(function(_post, index) {
+                            if (_post.id == post.id) {
+                                $scope.posts.splice(index, 1);
+                            }
+                        });
+                        $scope.filteredResults.forEach(function(_post, index) {
+                            if (_post.id == post.id) {
+                                $scope.filteredResults.splice(index, 1);
+                            }
+                        });
                 }, function(res) {
-                    alert(res.data.message);
+                        alert(res.data.message);
                 });
             }
         };
@@ -85,10 +86,7 @@ angular.module('simple-cms.post')
         // Another functions
         function countPosts() {
             var query = {
-                search: $scope.search.key ? JSON.stringify({
-                    key: $scope.search.key,
-                    attributes: ['title', 'slug', 'content']
-                }) : null,
+                search: $scope.search.key  || null,
                 skip: $scope.search.num * $scope.search.page,
                 limit: $scope.search.num
             }
@@ -101,10 +99,7 @@ angular.module('simple-cms.post')
         }
         function loadPosts() {
             var query = {
-                search: $scope.search.key ? JSON.stringify({
-                    key: $scope.search.key,
-                    attributes: ['title', 'slug', 'content']
-                }) : null,
+                search: $scope.search.key || null,
                 skip: $scope.search.num * $scope.search.page,
                 limit: $scope.search.num
             }
@@ -120,8 +115,8 @@ angular.module('simple-cms.post')
         function loadTags() {
             tagService.query({
                 limit: 0
-            }, function(tags) {
-                $scope.tags = tags.data;
+            }, function(tag) {
+                $scope.tags = tag.data;
             }, function(res) {
                 alert(res.data.message);
             });
@@ -137,7 +132,7 @@ angular.module('simple-cms.post')
                 if (!$scope.filter.tag || $scope.filter.tag == post.tag.id) {
                     chkTag = true;
                 }
-                if (!$scope.filter.type || ($scope.filter.type == 'page' && post.isStaticPage) || ($scope.filter.type == 'post' && !post.isStaticPage)) {
+                if (!$scope.filter.type || ($scope.filter.type == 'page' && post.isStaticPage == '1') || ($scope.filter.type == 'post' && post.isStaticPage == '0')) {
                     chkType = true;
                 }
 
@@ -179,10 +174,10 @@ angular.module('simple-cms.post')
                     content: null,
                     numWords: 0,
                     readingSpeed: $filter('readingSpeed')(0),
-                    isStaticPage: false,
+                    isStaticPage: '0',
                     tags: [],
                     date: $filter('date')(new Date(), 'yyyy-MM-dd hh:mm:ss'),
-                    isPublished: true
+                    isPublished: '1'
                 };
             } else {
                 loadPost();
@@ -269,8 +264,8 @@ angular.module('simple-cms.post')
         function loadTags() {
             tagService.query({
                 limit: 0
-            }, function(tags) {
-                $scope.tags = tags.data;
+            }, function(tag) {
+                $scope.tags = tag.data;
             }, function(res) {
                 alert(res.data.message);
             });

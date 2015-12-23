@@ -114,12 +114,20 @@ angular.module('simple-cms.setting')
         function loadStaticPages() {
             var query = {
                 query: JSON.stringify({
-                    isStaticPage: true
+                    isStaticPage: 1
                 }),
                 limit: 0
             }
             postService.query(query, function(pages) {
-                $scope.staticPages = pages;
+                var page = [];
+                var page_l = pages.data.length;
+                for(var i = 0 ; i< page_l; i++){
+                    var check = pages.data[i].isStaticPage;
+                    if(check == 1 || check == '1'){
+                         page.push(pages.data[i]);
+                    }
+                }
+                $scope.staticPages = page;
             }, function(res) {
                 alert(res.data.message);
             });
