@@ -17,10 +17,10 @@ class Category extends CI_Controller {
 	{
 		$result = array();
 
-		$search = (null !== ($this->input->get("search"))) 	? $this->input->get("search") 	: '';
-		$sort 	= (null !== ($this->input->get("sort"))) 	? $this->input->get("sort") 	: '-created';
-		$skip 	= (null !== ($this->input->get("skip"))) 	? $this->input->get("skip") 	: 0;
-		$limit 	= (null !== ($this->input->get("limit"))) 	? $this->input->get("limit") 	: 50;
+		$search = !empty($this->input->get("search")) 	? $this->input->get("search") 	: '';
+		$sort 	= !empty($this->input->get("sort")) 	? $this->input->get("sort") 	: '-created';
+		$skip 	= !empty($this->input->get("skip")) 	? $this->input->get("skip") 	: 0;
+		$limit 	= !empty($this->input->get("limit")) ? $this->input->get("limit") 	: 50;
 
 		if (!is_null($categoryList = $this->model_category->getList($search,$sort,$skip,$limit)) ) {
 			$result['code'] 	= 1;

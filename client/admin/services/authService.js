@@ -12,7 +12,7 @@ angular.module('simple-cms.auth')
             }).login,
             isLoggedin: $resource('api/isLoggedin').get,
             me: $resource('api/me').get,
-            logout: $resource('api/logout').get
+            logout: $resource('api/auth/logout').get
         };
 
         return authService;

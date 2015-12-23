@@ -41,12 +41,12 @@
                                 <td>{{$index + 1}}</td>
                                 <td>{{post.date | date : 'yyyy-MM-dd'}}</td>
                                 <td>
-                                    <a ui-sref="postDetails({postId: post._id})">{{post.title}}</a><br>
+                                    <a ui-sref="postDetails({postId: post.id})">{{post.title}}</a><br>
                                     <span ng-repeat="tag in post.tags">#{{tag.name}} </span>
                                 </td>
                                 <td>{{post.readingSpeed + ' / ' + (post.numWords > 1 ? (post.numWords | number) + ' words' : (post.numWords | number) + ' word')}}</td>
                                 <td>
-                                    <span class="label" ng-class="{'label-primary': post.isStaticPage, 'label-success': !post.isStaticPage && post.isPublished, 'label-default': !post.isStaticPage && !post.isPublished}">{{post.isStaticPage ? 'Static Page' : (post.isPublished ? 'Published' : 'Unpublished')}}</span>
+                                    <span class="label" ng-class="{'label-primary': post.isStaticPage == '1', 'label-success': post.isStaticPage == '0'&& post.isPublished == '1', 'label-default': post.isStaticPage == '0' && post.isPublished == '0'}">{{post.isStaticPage == '1' ? 'Static Page' : (post.isPublished == '1' ? 'Published' : 'Unpublished')}}</span>
                                 </td>
                                 <td class="text-right">
                                     <button type="button" class="btn btn-xs btn-danger" ng-click="delete(post)"><i class="fa fa-times"></i></button>

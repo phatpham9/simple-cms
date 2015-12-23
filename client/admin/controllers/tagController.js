@@ -27,7 +27,7 @@ angular.module('simple-cms.tag')
             }
 
             tagService.query(query, function(tags) {
-                $scope.tags = tags;
+                $scope.tags = tags.data;
             }, function(res) {
                 alert(res.data.message);
             });

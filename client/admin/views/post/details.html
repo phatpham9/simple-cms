@@ -31,7 +31,7 @@
                         <div class="form-group" ng-class="{'has-error': form.slug.$error.uniquepost || (form.$submitted && form.slug.$error.required)}">
                             <label for="slug" class="col-md-2 control-label">Slug</label>
                             <div class="col-md-8">
-                                <input type="text" id="slug" class="form-control" name="slug" ng-model="post.slug" required uniquepost="{{post._id}}" tooltip="{{form.slug.$error.required ? 'Slug is required' : (form.slug.$error.uniquepost ? 'Slug already in use' : '')}}" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.slug.$error.uniquepost || (form.$submitted && form.slug.$error.required)">
+                                <input type="text" id="slug" class="form-control" name="slug" ng-model="post.slug" required uniquepost="{{post.id}}" tooltip="{{form.slug.$error.required ? 'Slug is required' : (form.slug.$error.uniquepost ? 'Slug already in use' : '')}}" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.slug.$error.uniquepost || (form.$submitted && form.slug.$error.required)">
                             </div>
                         </div>
                         <div class="form-group" ng-class="{'has-error': form.briefIntroduction.$invalid}">
@@ -64,7 +64,7 @@
                         <div class="form-group" ng-class="{'has-error': form.$submitted && form.staticPage.$invalid, 'mb0': post.isStaticPage}">
                             <label for="static-page" class="col-md-2 control-label">Static page</label>
                             <div class="col-md-8">
-                                <select name="staticPage" id="static-page" class="form-control" ng-model="post.isStaticPage" ng-options="staticPage.value as staticPage.text for staticPage in [{text: 'Yes', value: true}, {text: 'No', value: false}]" required tooltip="Static page is required" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.$submitted && form.staticPage.$invalid"></select>
+                                <select name="staticPage" id="static-page" class="form-control" ng-model="post.isStaticPage" ng-options="staticPage.value as staticPage.text for staticPage in [{text: 'Yes', value: '1'}, {text: 'No', value: '0'}]" required tooltip="Static page is required" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.$submitted && form.staticPage.$invalid"></select>
                             </div>
                         </div>
                         <div class="form-group" ng-hide="post.isStaticPage">
@@ -84,7 +84,7 @@
                         <div class="form-group mb0" ng-hide="post.isStaticPage" ng-class="{'has-error': form.$submitted && form.publish.$invalid}">
                             <label for="publish" class="col-md-2 control-label">Publish</label>
                             <div class="col-md-8">
-                                <select name="publish" id="publish" class="form-control" ng-model="post.isPublished" ng-options="publish.value as publish.text for publish in [{text: 'Yes', value: true}, {text: 'No', value: false}]" required tooltip="Publish is required" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.$submitted && form.publish.$invalid"></select>
+                                <select name="publish" id="publish" class="form-control" ng-model="post.isPublished" ng-options="publish.value as publish.text for publish in [{text: 'Yes', value: '1'}, {text: 'No', value: '0'}]" required tooltip="Publish is required" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.$submitted && form.publish.$invalid"></select>
                             </div>
                         </div>
                     </div>

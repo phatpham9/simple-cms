@@ -94,7 +94,7 @@ angular.module('simple-cms.post')
             }
 
             postService.count(query, function(count) {
-                $scope.count.total = count.total;
+                $scope.count.total = count.data.length;
             }, function(res) {
                 alert(res.data.message);
             });
@@ -110,8 +110,8 @@ angular.module('simple-cms.post')
             }
 
             postService.query(query, function(posts) {
-                $scope.count.fetched = posts.length;
-                $scope.posts = posts;
+                $scope.count.fetched = posts.data.length;
+                $scope.posts = posts.data;
                 filter();
             }, function(res) {
                 alert(res.data.message);
@@ -121,7 +121,7 @@ angular.module('simple-cms.post')
             tagService.query({
                 limit: 0
             }, function(tags) {
-                $scope.tags = tags;
+                $scope.tags = tags.data;
             }, function(res) {
                 alert(res.data.message);
             });
@@ -134,7 +134,7 @@ angular.module('simple-cms.post')
                 var chkType = false;
 
                 // filter
-                if (!$scope.filter.tag || $scope.filter.tag == post.tag._id) {
+                if (!$scope.filter.tag || $scope.filter.tag == post.tag.id) {
                     chkTag = true;
                 }
                 if (!$scope.filter.type || ($scope.filter.type == 'page' && post.isStaticPage) || ($scope.filter.type == 'post' && !post.isStaticPage)) {
@@ -200,10 +200,16 @@ angular.module('simple-cms.post')
         };
         $scope.delete = function() {
             if ($scope.post && confirm('Delete "' + $scope.post.title + '"?')) {
-                $scope.post.$remove(function() {
-                    $state.go('posts');
+                // $scope.post.$remove(function() {
+                //     $state.go('posts');
+                // }, function(res) {
+                //     alert(res.data.message);
+                // });
+                postService.delete($scope.post,
+                    function(setting) {
+                         $state.go('posts');
                 }, function(res) {
-                    alert(res.data.message);
+                        alert(res.data.message);
                 });
             }
         };
@@ -216,14 +222,15 @@ angular.module('simple-cms.post')
                     slug: $scope.post.slug
                 };
                 if ($state.is('postDetails')) {
-                    query._id = {
-                        $ne: $scope.post._id
+                    query.id = {
+                        $ne: $scope.post.id
                     }
                 }
+                // This function will be check slug has exist or not.
                 postService.exist({
                     query: JSON.stringify(query)
                 }, function(res) {
-                    if (!res.exist) {
+                    if (!res.code) {
                         form.slug.$setValidity('uniquepost', true);
                         savePost();
                     } else {
@@ -248,12 +255,12 @@ angular.module('simple-cms.post')
                 }
             });
         };
-        // Another functions
+        // Load post detail by id
         function loadPost() {
             postService.get({
                 postId: $stateParams.postId
             }, function(post) {
-                $scope.post = post;
+                $scope.post = post.data;
                 $scope.post.date = $filter('date')($scope.post.date, 'yyyy-MM-dd hh:mm:ss');
             }, function(res) {
                 alert(res.data.message);
@@ -263,7 +270,7 @@ angular.module('simple-cms.post')
             tagService.query({
                 limit: 0
             }, function(tags) {
-                $scope.tags = tags;
+                $scope.tags = tags.data;
             }, function(res) {
                 alert(res.data.message);
             });
@@ -272,15 +279,21 @@ angular.module('simple-cms.post')
             if ($state.is('postCreate')) {
                 var post = new postService($scope.post);
                 post.$save(function() {
-                    $state.go('postDetails', {postId: post._id});
+                    $state.go('postDetails', {postId: post.data.id});
                 }, function(res) {
                     alert(res.data.message);
                 });
             } else {
-                $scope.post.$update(function() {
-                    $state.go('posts');
+                // $scope.post.$update(function() {
+                //     $state.go('posts');
+                // }, function(res) {
+                //     alert(res.data.message);
+                // });
+                postService.update($scope.post,
+                    function(setting) {
+                         $state.go('posts');
                 }, function(res) {
-                    alert(res.data.message);
+                        alert(res.data.message);
                 });
             }
         }

@@ -54,13 +54,13 @@ class Model_post extends CI_Model {
 		}
 	}
 
-	function getDetails($id)
+	function getDetails($id,$slug)
 	{
+
 		$this->db->distinct();
-		$this->db->where($this->tblPost.'.id',$id);
+		!empty($slug) ? $this->db->where($this->tblPost.'.slug',$slug) : $this->db->where($this->tblPost.'.id',$id);
 		$this->db->where($this->tblPost.'.isDeleted',0);
 		$query = $this->db->get($this->tblPost);
-
 		return $query->num_rows() == 1 ? $query->row_array() : NULL;
 	}
 

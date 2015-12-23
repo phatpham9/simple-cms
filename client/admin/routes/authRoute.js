@@ -13,14 +13,20 @@ angular.module('simple-cms.auth', [
         var isLoggedin = ['$rootScope', '$state', '$http', '$q', '$timeout',
             function($rootScope, $state, $http, $q, $timeout) {
                 var deferred = $q.defer();
-                $http.get('api/isLoggedin')
+                $http.get('api/auth/login')
                 .success(function(res) {
-                    $timeout(deferred.reject);
-                    $state.go('home');
-                })
-                .error(function(error) {
-                    $timeout(deferred.resolve);
+                    // $timeout(deferred.reject);
+                    // $state.go('home');
+                    if(res.code == 2 || res.code == 1){
+                        $timeout(deferred.reject);
+                        $state.go('home');
+                    }else{
+                        $timeout(deferred.resolve);
+                    }
                 });
+                // .error(function(error) {
+                //     $timeout(deferred.resolve);
+                // });
                 return deferred.promise;
             }
         ];
@@ -36,7 +42,7 @@ angular.module('simple-cms.auth', [
                 url: '/login',
                 templateUrl: 'public/admin/views/auth/login.html',
                 resolve: {
-                    // isLoggedin: isLoggedin,
+                    isLoggedin: isLoggedin,
                     files: files
                 }
             });

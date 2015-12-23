@@ -57,20 +57,17 @@ class Setting extends CI_Controller {
 
 		// 	return;
 		// }
-
+		$_POST = json_decode(file_get_contents("php://input"), true);
 		$this->form_validation->set_rules('value', 'Value of id', 'trim|required');
 		//check id exist
 		if($this->model_setting->checkSettingExist($id))
 		{
 			// validation ok
-			// if ($this->form_validation->run()) 
-			// {
-				// Get data form angular ajax
-				$postdata = file_get_contents("php://input");
-      			$request = json_decode($postdata);
+			if ($this->form_validation->run()) 
+			{
 
 				$data['id']= $id;
-				$data['value'] = $request->value;
+				$data['value'] = $this->input->post('value');
 
 				// update to DB
 				if (!is_null($this->model_setting->update($data))) {
@@ -85,6 +82,7 @@ class Setting extends CI_Controller {
 				} 
 				// update to DB Fail
 				else {
+					print_r($validation_error());
 					$result['code'] = 0;
 					$result['message'] = 'Update setting error';
 
@@ -94,15 +92,15 @@ class Setting extends CI_Controller {
 					->set_output(json_encode($result));
 				}
 			// validation fail
-			// } else {
-			// 	$result['code'] = 0;
-			// 	$result['message'] = "Yolo";
+			} else {
+				$result['code'] = 0;
+				$result['message'] = "Yolo";
 				
-			// 	$this->output
-			// 	->set_status_header('403')
-			// 	->set_content_type('application/json')
-			// 	->set_output(json_encode($result));
-			// }
+				$this->output
+				->set_status_header('403')
+				->set_content_type('application/json')
+				->set_output(json_encode($result));
+			}
 		}
 		else {
 			$result['code'] 	= 0;

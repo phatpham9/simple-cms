@@ -17,10 +17,10 @@ class Post extends CI_Controller {
 	{
 		$result = array();
 		
-		$search = (null !== ($this->input->get("search"))) 	? $this->input->get("search") : '';
-		$sort 	= (null !== ($this->input->get("sort"))) 	? $this->input->get("sort") : '-created';
-		$skip 	= (null !== ($this->input->get("skip"))) 	? $this->input->get("skip") : 0;
-		$limit 	= (null !== ($this->input->get("limit"))) 	? $this->input->get("limit") : 50;
+		$search = !empty($this->input->get("search")) 	? $this->input->get("search") 	: '';
+		$sort 	= !empty($this->input->get("sort")) 	? $this->input->get("sort") 	: '-created';
+		$skip 	= !empty($this->input->get("skip")) 	? $this->input->get("skip") 	: 0;
+		$limit 	= !empty($this->input->get("limit")) ? $this->input->get("limit") 	: 50;
 
 		if (!is_null($postList = $this->model_post->getList($search,$sort,$skip,$limit)) ) {
 			$result['code'] = 1;
@@ -46,8 +46,10 @@ class Post extends CI_Controller {
 	// Get item details
 	public function get($id)
 	{
+		$query = !empty($this->input->get('query')) ? $this->input->get('query') : '';
+		$query ? json_decode($query)->slug : '';
 		$result = array();
-		if (!is_null($postInfo = $this->model_post->getDetails($id))) {
+		if (!is_null($postInfo = $this->model_post->getDetails($id,$query))) {
 			$result['code'] = 1;
 			$result['message'] = 'get post successfully';
 			$result['data'] = $postInfo;
@@ -63,7 +65,7 @@ class Post extends CI_Controller {
 			$result['message'] = 'get post error';
 			
 			$this->output
-			->set_status_header('403')
+			->set_status_header('200')
 			->set_content_type('application/json')
 			->set_output(json_encode($result));
 		}
@@ -76,29 +78,23 @@ class Post extends CI_Controller {
 		$result = array();
 		
 		//Session is expired
-		if (!$this->tank_auth->is_logged_in()) {
-			$result['code'] = 0;
-			$result['message'] = 'Your Session is expried. Please login & try again';
+		// if (!$this->tank_auth->is_logged_in()) {
+		// 	$result['code'] = 0;
+		// 	$result['message'] = 'Your Session is expried. Please login & try again';
 
-			$this->output
-				->set_status_header('403')
-				->set_content_type('application/json')
-				->set_output(json_encode($result));
+		// 	$this->output
+		// 		->set_status_header('403')
+		// 		->set_content_type('application/json')
+		// 		->set_output(json_encode($result));
 
-			return;
-		}
-
+		// 	return;
+		// }
+		$_POST = json_decode(file_get_contents("php://input"), true);
 		$this->form_validation->set_rules('title', 'Title', 'trim|required|min_length[2]|max_length[256]');
 		$this->form_validation->set_rules('slug', 'Slug', 'trim|required|min_length[2]');
-		$this->form_validation->set_rules('description', 'Description', 'trim|required|min_length[2]');
 		$this->form_validation->set_rules('content', 'Content', 'trim|required|min_length[2]');
-		$this->form_validation->set_rules('author', 'Author', 'trim|required|min_length[2]');
-		$this->form_validation->set_rules('isStaticPage', 'Static page', 'trim|required');
-		$this->form_validation->set_rules('isPublished', 'Published', 'trim|required');
-		$this->form_validation->set_rules('date', 'Date', 'trim|required');
-		
 		// validation ok
-		if ($this->form_validation->run()) {
+		if ($this->form_validation->run() == TRUE) {
 			$data['title']			= $this->input->post('title');
 			$data['slug'] 			= $this->input->post('slug');
 			$data['description']	= $this->input->post('description');
@@ -148,26 +144,26 @@ class Post extends CI_Controller {
 		$result = array();
 		
 		//Session is expired
-		if (!$this->tank_auth->is_logged_in()) {
-			$result['code'] = 0;
-			$result['message'] = 'Your Session is expried. Please login & try again';
+		// if (!$this->tank_auth->is_logged_in()) {
+		// 	$result['code'] = 0;
+		// 	$result['message'] = 'Your Session is expried. Please login & try again';
 
-			$this->output
-				->set_status_header('403')
-				->set_content_type('application/json')
-				->set_output(json_encode($result));
+		// 	$this->output
+		// 		->set_status_header('403')
+		// 		->set_content_type('application/json')
+		// 		->set_output(json_encode($result));
 
-			return;
-		}
-
+		// 	return;
+		// }
+		$_POST = json_decode(file_get_contents("php://input"), true);
 		$this->form_validation->set_rules('title', 'Title', 'trim|required|min_length[2]|max_length[256]');
 		$this->form_validation->set_rules('slug', 'Slug', 'trim|required|min_length[2]');
-		$this->form_validation->set_rules('description', 'Description', 'trim|required|min_length[2]');
+		//$this->form_validation->set_rules('description', 'Description', 'trim|required|min_length[2]');
 		$this->form_validation->set_rules('content', 'Content', 'trim|required|min_length[2]');
-		$this->form_validation->set_rules('author', 'Author', 'trim|required|min_length[2]');
-		$this->form_validation->set_rules('isStaticPage', 'Static page', 'trim|required');
-		$this->form_validation->set_rules('isPublished', 'Published', 'trim|required');
-		$this->form_validation->set_rules('date', 'Date', 'trim|required');
+		// $this->form_validation->set_rules('author', 'Author', 'trim|required|min_length[2]');
+		// $this->form_validation->set_rules('isStaticPage', 'Static page', 'trim|required');
+		// $this->form_validation->set_rules('isPublished', 'Published', 'trim|required');
+		// $this->form_validation->set_rules('date', 'Date', 'trim|required');
 		
 		//check post exist
 		if($this->model_post->checkPostExist($id))
@@ -235,17 +231,17 @@ class Post extends CI_Controller {
 		$result = array();
 		
 		//Session is expired
-		if (!$this->tank_auth->is_logged_in()) {
-			$result['code'] 	= 0;
-			$result['message'] 	= 'Your Session is expried. Please login & try again';
+		// if (!$this->tank_auth->is_logged_in()) {
+		// 	$result['code'] 	= 0;
+		// 	$result['message'] 	= 'Your Session is expried. Please login & try again';
 
-			$this->output
-				->set_status_header('403')
-				->set_content_type('application/json')
-				->set_output(json_encode($result));
+		// 	$this->output
+		// 		->set_status_header('403')
+		// 		->set_content_type('application/json')
+		// 		->set_output(json_encode($result));
 
-			return;
-		}
+		// 	return;
+		// }
 
 		//check post exist
 		if($this->model_post->checkPostExist($id))

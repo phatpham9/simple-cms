@@ -30,7 +30,7 @@ class Auth extends CI_Controller
 	 */
 	function login()
 	{
-
+		$_POST = json_decode(file_get_contents("php://input"), true);
 		$result = array();
 		$result['code'] = $this->auth_status['default'];
 		if ($this->tank_auth->is_logged_in()) {									// logged in
@@ -55,8 +55,8 @@ class Auth extends CI_Controller
 			$postdata = file_get_contents("php://input");
       		$request = json_decode($postdata);
 
-			$login = $request->email;
-			$password = $request->password;
+			$login = $this->input->post('email');
+			$password = $this->input->post('password');
 			$remember = $this->input->post('remember');
 			
 

@@ -69,18 +69,23 @@ angular.module('simple-cms.setting')
         };
         $scope.save = function(form) {
             form.$submitted = true;
-
             if (form.$valid) {
-                $scope.setting.$update(function() {
-                    alert('Settings saved!');
+
+                var data = $scope.setting;
+                data.value = JSON.stringify(data.value);
+
+                settingService.update(data,
+                    function(setting) {
+                        alert('Settings saved!');
                 }, function(res) {
-                    alert(res.data.message);
+                        alert(res.data.message);
                 });
+
             }
         };
         $scope.addItem = function(item) {
             if (item.url && item.url.trim() && item.text && item.text.trim()) {
-                $scope.setting.data.push(angular.copy(item));
+                $scope.setting.value.push(angular.copy(item));
                 initNewItem();
             } else {
                 alert('Url and display text can\'t be empty.');
@@ -88,9 +93,9 @@ angular.module('simple-cms.setting')
         };
         $scope.removeItem = function(item) {
             if (confirm('Confirm delete ' + item.text + '?')) {
-                $scope.setting.data.forEach(function(_item, index) {
+                $scope.setting.value.forEach(function(_item, index) {
                     if (_item.text == item.text && _item.slug == item.slug) {
-                        $scope.setting.data.splice(index, 1);
+                        $scope.setting.value.splice(index, 1);
                     }
                 });
             }
@@ -100,7 +105,8 @@ angular.module('simple-cms.setting')
             settingService.get({
                 settingId: 'navigation'
             }, function(setting) {
-                $scope.setting = setting;
+                setting.data.value = JSON.parse(setting.data.value);
+                $scope.setting = setting.data;
             }, function(res) {
                 alert(res.data.message);
             });

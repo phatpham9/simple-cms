@@ -29,7 +29,8 @@ class Model_category extends CI_Model {
 					 . " ORDER BY ".(($pieces[0] === '-') ? "`".$pieces[1]."` DESC" : "`".$pieces[1]."` ASC")
 					 . " LIMIT ". $limit
 					 . " OFFSET ".$offset;
-		
+		// print_r($sqlCommand);
+		// exit();
 		$query = $this->db->query($sqlCommand);
 		
 		//return $query->num_rows() > 0 ? $query->result_array() : NULL;
