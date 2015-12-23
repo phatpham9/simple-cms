@@ -394,6 +394,14 @@ class Tank_auth
 		return FALSE;
 	}
 
+	function hash_password($password) {
+		$hasher = new PasswordHash(
+					$this->ci->config->item('phpass_hash_strength', 'tank_auth'),
+					$this->ci->config->item('phpass_hash_portable', 'tank_auth'));
+		$hashed_password = $hasher->HashPassword($password);
+		return $hashed_password;
+	}
+
 	/**
 	 * Change user email (only when user is logged in) and return some data about user:
 	 * user_id, username, new_email, new_email_key.
