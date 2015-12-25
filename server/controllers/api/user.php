@@ -155,6 +155,7 @@ class user extends CI_Controller {
 			return;
 		}
 		$_POST = json_decode(file_get_contents("php://input"), true);
+		$this->form_validation->set_rules('email', 'Email', 'trim|required|xss_clean|valid_email');
 		$this->form_validation->set_rules('password', 'Password', 'trim|xss_clean');
 		
 		//check user exist
@@ -163,6 +164,7 @@ class user extends CI_Controller {
 			// validation ok
 			if ($this->form_validation->run()) {
 				$data['id'] = $id;
+				$data['email'] = $this->input->post('email');
 				!empty($this->input->post('password')) ? $data['password'] = $this->tank_auth->hash_password($this->input->post('password')) : '';
 				$data['isEnabled']	= $this->input->post('isEnabled');
 

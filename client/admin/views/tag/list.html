@@ -1,4 +1,4 @@
-<div class="container-fluid" ng-controller="tagController" ng-init="init()">
+<!-- <div class="container-fluid" ng-controller="tagController" ng-init="init()">
     <div class="row">
         <div class="col-md-12">
             <h1 class="page-header">
@@ -9,6 +9,73 @@
     <div class="row">
         <div class="col-md-12">
             <span class="badge" ng-repeat="tag in tags">#{{tag.name}}</span>
+            <a ui-sref="tagDetails({tagId: tag.id})" href class="badge" style="margin-right:5px" ng-repeat="tag in tags">#{{tag.name}}&nbsp<i class="glyphicon glyphicon-remove" styte="font-size: 10px font-weight: lighter" ng-click="delete(tag)"></i></a>
+        </div>
+    </div>
+</div> -->
+
+
+
+<div class="container-fluid" ng-controller="tagController" ng-init="init()">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="page-header">
+                Tags
+                <div class="pull-right">
+                    <a ui-sref="tagCreate" class="btn btn-sm btn-default"><i class="fa fa-plus"></i></a>
+                </div>
+            </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Users
+                    <div class="pull-right" style="margin-top: -5px;">
+                        <form name="form" novalidate ng-submit="onChangeSearchKey()">
+                            <input type="text" class="form-control input-sm" placeholder="Search" ng-model="search.key">
+                        </form>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="col-5">#</th>
+                                <th>Name</th>
+                                <th class="col-5">
+                                    Description
+                                </th>
+                                <th class="col-5"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="tag in tags">
+                                <td>{{$index + 1}}</td>
+                                <td>
+                                    <a href="" class="badge" ui-sref="tagDetails({tagId: tag.id})">#{{tag.name}}</a>
+                                </td>
+                                <!-- <td>{{tag.roles.join(', ')}}</td> -->
+                                <td>
+                                   <!--  <span class="label" ng-class="{'label-success' : user.isEnabled == '1', 'label-default' : user.isEnabled == '0'}">{{user.isEnabled == '1' ? 'Enabled' : 'Disabled'}}</span> -->
+                                   <a>{{tag.description}}</a>
+                                </td>
+                                <td class="text-right">
+                                    <button type="button" class="btn btn-xs btn-danger" ng-click="delete(tag)"><i class="fa fa-times"></i></button>
+                                </td>
+                            </tr>
+                            <tr ng-show="tags.length == 0">
+                                <td colspan="5" class="text-center">There's no user yet!</td>
+                            </tr>
+                            <tr ng-if="count.fetched < count.total">
+                                <td colspan="5" class="text-center"><button type="button" class="btn btn-default btn-sm" ng-click="loadMore()">Load more</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+

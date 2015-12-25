@@ -46,8 +46,9 @@ class Category extends CI_Controller {
 	// Get item details
 	public function get($id)
 	{
+		$query = !empty($this->input->get('query')) ? json_decode($this->input->get('query'))->name : '';
 		$result = array();
-		if (!is_null($categoryInfo = $this->model_category->getDetails($id))) {
+		if (!is_null($categoryInfo = $this->model_category->getDetails($id,$query))) {
 			$result['code'] 	= 1;
 			$result['message'] 	= 'get category successfully';
 			$result['data'] 	= $categoryInfo;
@@ -63,7 +64,7 @@ class Category extends CI_Controller {
 			$result['message'] 	= 'get category error';
 			
 			$this->output
-			->set_status_header('403')
+			->set_status_header('200')
 			->set_content_type('application/json')
 			->set_output(json_encode($result));
 		}
@@ -87,19 +88,19 @@ class Category extends CI_Controller {
 
 			return;
 		}
-
+		$_POST = json_decode(file_get_contents("php://input"), true);
 		$this->form_validation->set_rules('name', 'Name', 'trim|required|min_length[2]|max_length[256]');
 		$this->form_validation->set_rules('slug', 'Slug', 'trim|required|min_length[2]');
-		$this->form_validation->set_rules('description', 'Description', 'trim|required|min_length[2]');
-		$this->form_validation->set_rules('parent', 'Parent', 'trim|required|min_length[2]');
+		// $this->form_validation->set_rules('description', 'Description', 'trim|required|min_length[2]');
+		// $this->form_validation->set_rules('parent', 'Parent', 'trim|required|min_length[2]');
 		
 		
 		// validation ok
 		if ($this->form_validation->run()) {
 			$data['name']			= $this->input->post('name');
 			$data['slug'] 			= $this->input->post('slug');
-			$data['description']	= $this->input->post('description');
-			$data['parent']			= $this->input->post('parent');
+			// $data['description']	= $this->input->post('description');
+			// $data['parent']			= $this->input->post('parent');
 			
 			// Insert to DB
 			if (!is_null($categoryInfo = $this->model_category->create($data))) {
@@ -152,28 +153,27 @@ class Category extends CI_Controller {
 
 			return;
 		}
-
+		$_POST = json_decode(file_get_contents("php://input"), true);
 		$this->form_validation->set_rules('name', 'Name', 'trim|required|min_length[2]|max_length[256]');
 		$this->form_validation->set_rules('slug', 'Slug', 'trim|required|min_length[2]');
-		$this->form_validation->set_rules('description', 'Description', 'trim|required|min_length[2]');
-		$this->form_validation->set_rules('parent', 'Parent', 'trim|required|min_length[2]');
-		
+		// $this->form_validation->set_rules('description', 'Description', 'trim|required|min_length[2]');
+		// $this->form_validation->set_rules('parent', 'Parent', 'trim|required|min_length[2]');
 		//check category exist
 		if($this->model_category->checkCategoryExist($id))
 		{	
 			// validation ok
 			if ($this->form_validation->run()) {
 				$data['id']				= $id;
-				$data['name']			= $this->form_validation->set_value('name');
-				$data['slug'] 			= $this->form_validation->set_value('slug');
-				$data['description']	= $this->form_validation->set_value('description');
-				$data['parent']			= $this->form_validation->set_value('parent');
+				$data['name']			= $this->input->post('name');
+				$data['slug'] 			= $this->input->post('slug');
+				// $data['description']	= $this->form_validation->set_value('description');
+				// $data['parent']			= $this->form_validation->set_value('parent');
 				
 				// update to DB
 				if (!is_null($this->model_category->update($data))) {
 					$result['code'] 	= 1;
 					$result['message'] 	= 'Update category successfully';
-					$result['data'] 	= $this->model_category->getDetails($data['id']);
+					$result['data'] 	= $this->model_category->getDetails($data['id'],'');
 					
 					$this->output
 					->set_status_header('200')

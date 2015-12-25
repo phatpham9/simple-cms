@@ -55,14 +55,6 @@ class Model_user extends CI_Model {
 	{
 		$this->db->distinct();
 		!empty($email) ? $this->db->where($this->tblUser.'.email',$email) : $this->db->where($this->tblUser.'.id',$id);
-		if(!empty($email) && empty($id)){
-			$this->db->where($this->tblUser.'.email',$email);
-		}elseif(!empty($id) && empty($email)){
-			$this->db->where($this->tblUser.'.id',$id);
-		}else{
-			$this->db->where($this->tblUser.'.email',$email);
-			$this->db->where($this->tblUser.'.id',$id);
-		}
 		$this->db->where($this->tblUser.'.isDeleted',0);
 		$query = $this->db->get($this->tblUser);
 		return $query->num_rows() == 1 ? $query->row_array() : NULL;

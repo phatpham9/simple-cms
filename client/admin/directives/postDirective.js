@@ -14,11 +14,11 @@ angular.module('simple-cms.post')
                     var query = {
                         slug: element.val()
                     };
-                    if (attributes.uniquepost) {
-                        query._id = {
-                            $ne: attributes.uniquepost
-                        }
-                    }
+                    // if (attributes.uniquepost) {
+                    //     query._id = {
+                    //         $ne: attributes.uniquepost
+                    //     }
+                    // }
                     postService.exist({
                         query: JSON.stringify(query)
                     }, function(res) {

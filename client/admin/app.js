@@ -38,7 +38,10 @@ angular.module('simple-cms', [
             }
         ];
         var files = ['$ocLazyLoad', function($ocLazyLoad) {
-            return $ocLazyLoad.load('public/admin/controllers/homeController.js')
+            return $ocLazyLoad.load([
+                'public/admin/controllers/homeController.js',
+                'public/admin/services/authService.js'
+                ])
         }];
 
         $urlRouterProvider.otherwise('/');

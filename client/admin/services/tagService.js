@@ -4,7 +4,7 @@ angular.module('simple-cms.tag')
 
 .factory('tagService', ['$resource',
     function($resource) {
-        return $resource('api/category/:tagId', {
+        var tagService = $resource('api/category/:tagId', {
             tagId: '@id'
         }, {
             update: {
@@ -15,5 +15,15 @@ angular.module('simple-cms.tag')
                 isArray: false
             }
         });
+        tagService.delete = $resource('api/category/:tagId/delete',{
+             tagId: '@id'
+        },{
+            delete :{
+                method: 'POST'
+            }
+        }).delete;
+        tagService.count = $resource('api/category').get;
+        tagService.exist = $resource('api/category/exist').get;
+        return tagService;
     }
 ]);

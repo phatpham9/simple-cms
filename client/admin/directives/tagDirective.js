@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('simple-cms.user')
+angular.module('simple-cms.tag')
 
-.directive('uniqueemail', ['userService',
-    function(userService) {
+.directive('uniquename', ['tagService',
+    function(tagService) {
         return {
             restrict: 'A',
             require: 'ngModel',
@@ -12,20 +12,16 @@ angular.module('simple-cms.user')
                     if (!ngModel || !element.val()) return;
 
                     var query = {
-                        email: element.val()
+                        name: element.val()
                     };
-                    // if (attributes.uniqueemail) {
-                    //     query._id = {
-                    //         $ne: attributes.uniqueemail
-                    //     }
-                    // }
-                    userService.exist({
+
+                    tagService.exist({
                         query: JSON.stringify(query)
                     }, function(res) {
-                        ngModel.$setValidity('uniqueemail', !res.exist);
+                        ngModel.$setValidity('uniquename', !res.code);
                     }, function(err) {
                         alert(err.message);
-                        ngModel.$setValidity('uniqueemail', false);
+                        ngModel.$setValidity('uniquename', false);
                     });
                 });
             }

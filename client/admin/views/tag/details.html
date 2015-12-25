@@ -1,0 +1,41 @@
+<div class="container-fluid" ng-controller="tagDetailsController" ng-init="init()">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="page-header">
+                {{state.is('tagCreate') ? 'New Tag' : 'Tag Details'}}
+                <div class="pull-right">
+                    <a ui-sref="tags" class="btn btn-sm btn-default"><i class="fa fa-arrow-left"></i></a>
+                </div>
+            </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form name="form" class="form-horizontal" novalidate ng-submit="save(form)">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        {{tag.name || '-'}}
+                        <div class="pull-right" style="margin-top: -5px;">
+                            <button type="button" class="btn btn-sm btn-default" ng-click="delete()" ng-if="state.is('tagDetails')"><i class="fa fa-times"></i></button>
+                            <button type="submit" class="btn btn-sm btn-default"><i class="fa fa-floppy-o"></i></button>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group" ng-class="{'has-error': form.name.$error.uniquename || (form.$submitted && form.name.$invalid)}">
+                            <label for="name" class="col-md-2 control-label">Tag Name</label>
+                            <div class="col-md-8">
+                                <input type="text" id="name" class="form-control" name="name" ng-model="tag.name" required uniquename="{{tag.id}}" tooltip="{{form.name.$error.required ? 'Name is required' : (form.name.$error.name ? 'Invalid name' : (form.name.$error.uniquename ? 'Name is already used' : ''))}}" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.name.$error.uniquename || (form.$submitted && form.name.$invalid)" ng-change="generateSlug()">
+                            </div>
+                        </div>
+                         <div class="form-group" ng-class="{'has-error': form.$submitted && form.slug.$invalid}">
+                            <label for="slug" class="col-md-2 control-label">Slug</label>
+                            <div class="col-md-8">
+                                <input type="text" id="slug" class="form-control" name="slug" ng-model="tag.slug" required tooltip="Slug is required" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.$submitted && form.slug.$invalid">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

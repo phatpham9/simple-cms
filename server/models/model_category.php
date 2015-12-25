@@ -53,10 +53,10 @@ class Model_category extends CI_Model {
 		}
 	}
 
-	function getDetails($id)
+	function getDetails($id,$name)
 	{
 		$this->db->distinct();
-		$this->db->where($this->tblCategory.'.id',$id);
+		!empty($name) ? $this->db->where($this->tblCategory.'.name',$name) : $this->db->where($this->tblCategory.'.id',$id);
 		$this->db->where($this->tblCategory.'.isDeleted',0);
 		$query = $this->db->get($this->tblCategory);
 

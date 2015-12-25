@@ -34,18 +34,37 @@ angular.module('simple-cms.tag', [
         var files = ['$ocLazyLoad', function($ocLazyLoad) {
             return $ocLazyLoad.load([
                 'public/admin/controllers/tagController.js',
-                'public/admin/services/tagService.js'
+                'public/admin/services/tagService.js',
+                 'public/admin/services/utils.js',
+                 'public/admin/directives/tagDirective.js'
             ])
         }];
 
         $stateProvider
             .state('tags', {
-                url: '/tags',
+                url: '/tags?key',
                 templateUrl: 'public/admin/views/tag/list.html',
                 resolve: {
                     isLoggedin: isLoggedin,
                     files: files
                 }
-            });
+            })
+            .state('tagCreate', {
+                url: '/tag/create',
+                templateUrl: 'public/admin/views/tag/details.html',
+                resolve: {
+                    isLoggedin: isLoggedin,
+                    files: files
+                }
+            })
+            .state('tagDetails', {
+                url: '/tag/:tagId',
+                templateUrl: 'public/admin/views/tag/details.html',
+                resolve: {
+                    isLoggedin: isLoggedin,
+                    files: files
+                }
+            })
+            ;
     }
 ])

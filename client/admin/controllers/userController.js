@@ -144,7 +144,8 @@ angular.module('simple-cms.user')
         };
         $scope.delete = function() {
             if ($scope.user && confirm('Delete "' + $scope.user.email + '"?')) {
-                $scope.user.$remove(function() {
+                 userService.delete($scope.user,
+                    function() {
                     $state.go('users');
                 }, function(res) {
                     alert(res.data.message);
@@ -168,11 +169,16 @@ angular.module('simple-cms.user')
                 var query = {
                     email: $scope.user.email
                 };
-                if ($state.is('userDetails')) {
-                    query.id = {
-                        $ne: $scope.user.id
-                    }
-                }
+
+                // if ($state.is('userDetails')) {
+                //     userService.get({
+                //         userId: $stateParams.userId
+                //     }, function(user) {
+                //         $scope.user.email == user.data.email ? chkUser = true : ''; 
+                //     }, function(res) {
+                //         alert(res.data.message);
+                //     });    
+                // }
                 
                 userService.exist({
                     query: JSON.stringify(query)
