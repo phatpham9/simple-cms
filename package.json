@@ -6,6 +6,8 @@
     "postinstall": "bower install"
   },
   "author": [
+    "Chau Duong <chau.duong1192@gmail.com>",
+    "Khang Huynh <khanghuynh92@gmail.com>",
     "Phat Pham <me@phatpham.com>",
     "Quang Nguyen <nguyenphuquang90@gmail.com"
   ],

@@ -17,7 +17,9 @@ var cssFilesToInject = [
   'shared/styles/font-awesome.css',
   'shared/styles/bootstrap.css',
   'shared/styles/normalize.css',
-  'shared/styles/**/*.css'
+  'shared/styles/metisMenu.css',
+  'shared/styles/**/!(admin).css',
+  'shared/styles/admin.css'
 ];
 
 
@@ -28,9 +30,14 @@ var jsFilesToInject = [
   'shared/scripts/angular.js',
   'shared/scripts/ui-bootstrap.js',
   'shared/scripts/ui-bootstrap-tpls.js',
-  'shared/scripts/**/*.js',
+  'shared/scripts/**/!(admin).js',
+  'shared/scripts/admin.js',
   'admin/app.js',
-  'admin/routes/*.js'
+  'admin/routes/*.js',
+  'admin/services/utils.js',
+  'admin/directives/headerDirective.js',
+  'admin/directives/headerNotificationDirective.js',
+  'admin/directives/sidebarDirective.js'
 ];
 
 
