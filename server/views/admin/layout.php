@@ -19,8 +19,8 @@
         <link rel="stylesheet" href="public/shared/styles/metisMenu.css">
         <link rel="stylesheet" href="public/shared/styles/bootstrap.min.css">
         <link rel="stylesheet" href="public/shared/styles/font-awesome.min.css">
-        <link rel="stylesheet" href="public/shared/styles/ng-tags-input.bootstrap.css">
-        <link rel="stylesheet" href="public/shared/styles/ng-tags-input.css">
+        <link rel="stylesheet" href="public/shared/styles/ng-tags-input.bootstrap.min.css">
+        <link rel="stylesheet" href="public/shared/styles/ng-tags-input.min.css">
         <link rel="stylesheet" href="public/shared/styles/textAngular.css">
         <link rel="stylesheet" href="public/shared/styles/admin.css">
         <!--STYLES END-->
@@ -49,7 +49,7 @@
         <script src="public/shared/scripts/angular-sanitize.js"></script>
         <script src="public/shared/scripts/angular-ui-router.js"></script>
         <script src="public/shared/scripts/metisMenu.js"></script>
-        <script src="public/shared/scripts/ng-tags-input.js"></script>
+        <script src="public/shared/scripts/ng-tags-input.min.js"></script>
         <script src="public/shared/scripts/ocLazyLoad.js"></script>
         <script src="public/shared/scripts/textAngular-rangy.min.js"></script>
         <script src="public/shared/scripts/textAngular-sanitize.min.js"></script>

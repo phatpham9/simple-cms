@@ -25,9 +25,9 @@
                         <thead>
                             <tr>
                                 <th class="col-5">#</th>
-                                <th class="col-10">Date</th>
+                                <th class="col-15">Date</th>
                                 <th>Title</th>
-                                <th class="col-20">Reading Speed</th>
+                                <!--<th class="col-20">Reading Speed</th>-->
                                 <th class="col-5">
                                     <select class="form-control" ng-model="filter.type" ng-options="type.value as type.text for type in [{text: 'Posts', value: 'post'}, {text: 'Pages', value: 'page'}]" style="height: inherit;">
                                         <option value="">All</option>
@@ -44,7 +44,7 @@
                                     <a ui-sref="postDetails({postId: post.id})">{{post.title}}</a><br>
                                     <span ng-repeat="tag in post.tags">#{{tag.name}} </span>
                                 </td>
-                                <td>{{post.readingSpeed + ' / ' + (post.numWords > 1 ? (post.numWords | number) + ' words' : (post.numWords | number) + ' word')}}</td>
+                                <!--<td>{{post.readingSpeed + ' / ' + (post.numWords > 1 ? (post.numWords | number) + ' words' : (post.numWords | number) + ' word')}}</td>-->
                                 <td>
                                     <span class="label" ng-class="{'label-primary': post.isStaticPage == '1', 'label-success': post.isStaticPage == '0'&& post.isPublished == '1', 'label-default': post.isStaticPage == '0' && post.isPublished == '0'}">{{post.isStaticPage == '1' ? 'Static Page' : (post.isPublished == '1' ? 'Published' : 'Unpublished')}}</span>
                                 </td>

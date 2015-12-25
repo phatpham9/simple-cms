@@ -42,7 +42,7 @@ module.exports = function(grunt) {
                     'textAngular/dist/textAngular-rangy.min.js',
                     'textAngular/dist/textAngular-sanitize.min.js',
                     'textAngular/dist/textAngular.min.js',
-                    'ng-tags-input/ng-tags-input.js'
+                    'ng-tags-input/ng-tags-input.min.js'
                 ],
                 flatten: true,
                 dest: 'public/shared/scripts'
@@ -57,8 +57,8 @@ module.exports = function(grunt) {
                     'metisMenu/dist/metisMenu.css',
                 	'normalize.css/normalize.css',
                     'textAngular/dist/textAngular.css',
-                    'ng-tags-input/ng-tags-input.css',
-                    'ng-tags-input/ng-tags-input.bootstrap.css'
+                    'ng-tags-input/ng-tags-input.min.css',
+                    'ng-tags-input/ng-tags-input.bootstrap.min.css'
                 ],
                 flatten: true,
                 dest: 'public/shared/styles'

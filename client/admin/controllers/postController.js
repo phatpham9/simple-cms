@@ -150,14 +150,14 @@ angular.module('simple-cms.post')
         $scope.post = {};
         $scope.tags = [];
 
-        $scope.$watch('post.content', function(value) {
+        /*$scope.$watch('post.content', function(value) {
             $scope.post.numWords = $filter('numWords')($filter('htmlToText')(value));
             $scope.post.readingSpeed = $filter('readingSpeed')($scope.post.numWords);
 
             if ($scope.form.$submitted) {
                 $scope.form.content.$setValidity('required', value ? true : false);
             }
-        });
+        });*/
 
         // Main functions
         $scope.init = function() {
@@ -264,8 +264,8 @@ angular.module('simple-cms.post')
         function loadTags() {
             tagService.query({
                 limit: 0
-            }, function(tag) {
-                $scope.tags = tag.data;
+            }, function(tags) {
+                $scope.tags = tags.data;
             }, function(res) {
                 alert(res.data.message);
             });

@@ -57,9 +57,9 @@
                             <div class="col-md-8">
                                 <text-angular id="content" name="content" ng-model="post.content" tooltip="Content is required" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip-enable="form.$submitted && form.content.$invalid"></text-angular>
                             </div>
-                            <div class="col-md-2">
+                            <!--<div class="col-md-2">
                                 <p class="help-block">{{post.numWords > 1 ? (post.numWords | number) + ' words' : (post.numWords | number) + ' word'}}<br>{{post.readingSpeed + ' read'}}</p>
-                            </div>
+                            </div>-->
                         </div>
                         <div class="form-group" ng-class="{'has-error': form.$submitted && form.staticPage.$invalid, 'mb0': post.isStaticPage == '1'}">
                             <label for="static-page" class="col-md-2 control-label">Static page</label>
@@ -71,7 +71,7 @@
                             <label for="tags" class="col-md-2 control-label">Tags</label>
                             <div class="col-md-8">
                                 <tags-input id="tags" ng-model="post.tags" display-property="name" add-on-space="true" addOnPaste="true">
-                                    <auto-complete source="tags.name"></auto-complete>
+                                    <auto-complete source="tags"></auto-complete>
                                 </tags-input>
                             </div>
                         </div>

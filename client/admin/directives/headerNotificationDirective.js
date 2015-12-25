@@ -10,7 +10,7 @@ angular.module('simple-cms')
         controller: ['$rootScope', '$scope', '$http', '$state',
             function($rootScope, $scope, $http, $state) {
                 $scope.logout = function() {
-                    $http.get('/api/logout')
+                    $http.get('api/auth/logout')
                     .success(function(res) {
                         $rootScope.isLoggedin = false;
                         $state.go('login');

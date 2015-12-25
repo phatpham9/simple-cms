@@ -35,7 +35,7 @@ class Model_post extends CI_Model {
 		$query = $this->db->query($sqlCommand);
 		// print_r($this->db->last_query());
 		//return $query->num_rows() > 0 ? $query->result_array() : NULL;
-		return $query->num_rows() > 0 ? $query->result() : NULL;
+		return $query->result();
 	}
 
 	function create($post)
