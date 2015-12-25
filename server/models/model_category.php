@@ -34,7 +34,7 @@ class Model_category extends CI_Model {
 		$query = $this->db->query($sqlCommand);
 		
 		//return $query->num_rows() > 0 ? $query->result_array() : NULL;
-		return $query->num_rows() > 0 ? $query->result() : NULL;
+		return $query->result();
 	}
 
 	function create($category)
